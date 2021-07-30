@@ -1,8 +1,8 @@
 fun eval(expr: Expr): Int =
-        when (expr) {
-            is Num -> expr.value
-            is Sum -> eval(expr.left)+eval(expr.right)
-        }
+    when (expr) {
+        is Num -> expr.value
+        is Sum -> eval(expr.left) + eval(expr.right)
+    }
 
 sealed class Expr
 class Num(val value: Int) : Expr()
