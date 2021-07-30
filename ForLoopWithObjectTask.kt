@@ -1,9 +1,9 @@
 class DateRange(val start: MyDate, val end: MyDate) : Iterable<MyDate> {
     override fun iterator(): Iterator<MyDate> {
         return object : Iterator<MyDate> {
-            
+
             var cur: MyDate = start
-            
+
             override fun next(): MyDate {
                 if (!hasNext()) throw NoSuchElementException()
                 val result = cur
