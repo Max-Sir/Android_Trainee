@@ -5,11 +5,12 @@ plugins {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.0"
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "com.coherentsolutions.by.max.sir.androidtrainingtasks"
         minSdkVersion 24
+        //noinspection OldTargetApi
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -17,15 +18,17 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    def str="string"
+    def var="app_name"
+    def app_name="AndroidTasksApplications"
     buildTypes {
-
         debug{
-            resValue "string", "app_name", "Android Task 1 debug"
+            resValue "$str","$var","$app_name v1.0 debug stable"
+
         }
         release {
+            resValue "$str","$var","$app_name v1.0 relaease stable"
             minifyEnabled false
-            resValue "string", "app_name", "Android Task 1.0"
-
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -36,6 +39,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -44,7 +50,11 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
-    testImplementation 'junit:junit:4.+'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    implementation 'androidx.annotation:annotation:1.2.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
