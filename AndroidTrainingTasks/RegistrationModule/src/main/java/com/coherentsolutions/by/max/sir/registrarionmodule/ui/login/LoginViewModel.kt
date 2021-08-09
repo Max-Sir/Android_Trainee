@@ -40,17 +40,28 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     }
 
     // A placeholder username validation check
-    private fun isUserNameValid(username: String): Boolean {
+    fun isUserNameValid(username: String): Boolean {
         return if (username.contains('@')) {
             Patterns.EMAIL_ADDRESS.matcher(username).matches()
         } else {
-            username.isNotBlank()
+            username.isNotBlank() && username.toList()
+                .any {
+                    it in 'A'..'Z'
+                            || it in 'a'..'z'
+                }
+                    && username.toList()
+                .all {
+                    it in 'A'..'Z'
+                            || it in 'a'..'z'
+                            || it in '0'..'9'
+                            || it in "$.@#%_-"
+                }
         }
     }
 
     // A placeholder password validation check
-    private fun isPasswordValid(password: String): Boolean {
-        return password.length > 5
+    fun isPasswordValid(password: String): Boolean {
+        return password.length > 8
                 && password.all { it in '!'..'~' }
                 && password.any { it !in 'A'..'Z' && it !in 'a'..'z' && it !in '0'..'9' }
                 && password.any { it in 'A'..'Z' }
