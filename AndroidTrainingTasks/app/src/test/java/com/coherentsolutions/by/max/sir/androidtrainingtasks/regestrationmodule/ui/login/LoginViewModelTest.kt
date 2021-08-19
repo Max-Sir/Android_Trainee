@@ -60,6 +60,6 @@ class LoginViewModelTest {
     @Test
     fun `bad password credential case`() {
         viewModel.login("hello","world")
-        assertEquals(viewModel.loginResult.value, LoginResult(error = R.string.login_failed))
+        assertEquals(viewModel.loginResult.value?.error,R.string.login_failed)
     }
 }
