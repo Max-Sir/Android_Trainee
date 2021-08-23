@@ -1,5 +1,6 @@
 package com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login
 
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -11,9 +12,13 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.app.ShareCompat
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.ActivityLoginBinding
 
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.HomeActivity
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.LOGIN
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.PASSWORD
 
 class LoginActivity : AppCompatActivity() {
 
@@ -61,7 +66,10 @@ class LoginActivity : AppCompatActivity() {
             setResult(RESULT_OK)
 
             //Complete and destroy login activity once successful
-            finish()
+            val intent =
+                Intent(this, HomeActivity::class.java).putExtra(LOGIN, "${binding.username.text}")
+                    .putExtra(PASSWORD, "${binding.password.text}")
+            startActivity(intent)
         })
 
         username.afterTextChanged {

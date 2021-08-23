@@ -1,0 +1,28 @@
+package com.coherentsolutions.by.max.sir.androidtrainingtasks.home.user
+
+import androidx.lifecycle.ViewModelProvider
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
+
+class UserFragment : Fragment() {
+
+    companion object {
+        fun newInstance() = UserFragment()
+    }
+
+    private lateinit var viewModel: UserViewModel
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.user_fragment, container, false)
+    }
+
+
+
+}
