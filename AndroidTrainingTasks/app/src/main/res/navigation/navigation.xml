@@ -10,11 +10,8 @@
         android:name="com.coherentsolutions.by.max.sir.androidtrainingtasks.home.user.UserFragment"
         android:label="User">
         <argument
-            android:name="login"
-            app:argType="string" />
-        <argument
-            android:name="password"
-            app:argType="string" />
+            android:name="user"
+            app:argType="com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User" />
     </fragment>
     <fragment
         android:id="@id/petsFragment"

@@ -12,10 +12,13 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.Activit
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.user.UserFragment
 
-val LOGIN = "login"
-val PASSWORD = "password"
 
 class HomeActivity : AppCompatActivity() {
+
+    companion object {
+        val LOGIN = "login"
+        val PASSWORD = "password"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +31,9 @@ class HomeActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.userFragment, R.id.petsFragment))
         setupActionBarWithNavController(navController, appBarConfiguration)
         bottomNavigationItem.setupWithNavController(navController)
-        val userFragment = UserFragment()
         val user = intent.extras?.get("USER") as User
-        userFragment.arguments?.putBundle("USER",Bundle().)
+        val userFragment =
+            UserFragment.newInstance(Bundle().apply { putSerializable("USER", user) })
+
     }
 }

@@ -10,25 +10,31 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.UserFragmentBinding
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
 
 class UserFragment : Fragment() {
 
     companion object {
-        fun newInstance() = UserFragment()
+        fun newInstance(args:Bundle?):UserFragment{
+            val fragment = UserFragment()
+            fragment.arguments=args
+            return fragment
+        }
     }
 
     private lateinit var viewModel: UserViewModel
 
-    private lateinit var args:UserFragmentArgs
+//    private lateinit var arguments:UserFragmentArgs
 
     @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        args=UserFragmentArgs.fromBundle(arguments!!)
+        val argumentsUser=UserFragmentArgs.fromBundle(arguments!!)
+        val user= argumentsUser.toBundle().get("USER") as User
         val binding:UserFragmentBinding= DataBindingUtil.inflate(inflater,R.layout.user_fragment,container,false)
-        binding.passwordEditText.text="${args.login}"
+        binding.passwordEditText.setText(user.password)
         return binding.root
     }
 
