@@ -3,8 +3,11 @@
 
     <item
         android:id="@+id/userFragment"
-        android:title="User" />
+        android:title="User"
+        android:icon="@drawable/ic_user_account"/>
     <item
         android:id="@+id/petsFragment"
-        android:title="Pets" />
+        android:title="Pets"
+        android:icon="@drawable/ic_pets_for_current_user"/>
+
 </menu>

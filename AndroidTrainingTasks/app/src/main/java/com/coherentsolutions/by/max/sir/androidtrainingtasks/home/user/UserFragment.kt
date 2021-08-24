@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.UserFragmentBinding
 
 class UserFragment : Fragment() {
 
@@ -16,11 +18,17 @@ class UserFragment : Fragment() {
 
     private lateinit var viewModel: UserViewModel
 
+    private lateinit var args:UserFragmentArgs
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.user_fragment, container, false)
+        //args=UserFragmentArgs.fromBundle(arguments!!)
+        val binding:UserFragmentBinding= DataBindingUtil.inflate(inflater,R.layout.user_fragment,container,false)
+        binding.textUser.text="Hello World"
+        //binding.textUser.text="${args.login} ${args.password}"
+        return binding.root
     }
 
 
