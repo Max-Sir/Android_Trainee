@@ -14,7 +14,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:textSize="24sp"
-        android:text="THIS IS USER FRAGMENT" />
+        android:text="@string/this_is_user_fragment" />
 
 </FrameLayout>
 </layout>

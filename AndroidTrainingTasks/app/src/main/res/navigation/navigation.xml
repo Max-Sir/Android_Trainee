@@ -8,8 +8,7 @@
     <fragment
         android:id="@id/userFragment"
         android:name="com.coherentsolutions.by.max.sir.androidtrainingtasks.home.user.UserFragment"
-        android:label="user_fragment"
-        tools:layout="@layout/user_fragment" >
+        android:label="User">
         <argument
             android:name="login"
             app:argType="string" />
@@ -20,5 +19,5 @@
     <fragment
         android:id="@id/petsFragment"
         android:name="com.coherentsolutions.by.max.sir.androidtrainingtasks.home.pets.PetsFragment"
-        android:label="PetsFragment" />
+        android:label="Pets List" />
 </navigation>
