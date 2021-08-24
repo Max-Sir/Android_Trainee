@@ -19,6 +19,7 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.HomeActivity
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.LOGIN
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.PASSWORD
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
 
 class LoginActivity : AppCompatActivity() {
 
@@ -67,8 +68,13 @@ class LoginActivity : AppCompatActivity() {
 
             //Complete and destroy login activity once successful
             val intent =
-                Intent(this, HomeActivity::class.java).putExtra(LOGIN, "${binding.username.text}")
-                    .putExtra(PASSWORD, "${binding.password.text}")
+                Intent(this, HomeActivity::class.java).putExtra(
+                    "USER",
+                    User(
+                        username = "${binding.username.text}",
+                        password = "${binding.password.text}"
+                    )
+                )
             startActivity(intent)
         })
 

@@ -1,5 +1,6 @@
 package com.coherentsolutions.by.max.sir.androidtrainingtasks.home.user
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -20,14 +21,14 @@ class UserFragment : Fragment() {
 
     private lateinit var args:UserFragmentArgs
 
+    @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //args=UserFragmentArgs.fromBundle(arguments!!)
+        args=UserFragmentArgs.fromBundle(arguments!!)
         val binding:UserFragmentBinding= DataBindingUtil.inflate(inflater,R.layout.user_fragment,container,false)
-        binding.textUser.text="Hello World"
-        //binding.textUser.text="${args.login} ${args.password}"
+        binding.passwordEditText.text="${args.login}"
         return binding.root
     }
 
