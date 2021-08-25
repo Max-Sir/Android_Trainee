@@ -24,26 +24,13 @@ class UserViewModel(user:User) : ViewModel() {
     get() = _user
 
 
-    private val _showPasswordEvent=MutableLiveData<Boolean>()
-    val showPasswordEvent:LiveData<Boolean>
-    get()=_showPasswordEvent
-
     init{
         _user.value=user
-        _showPasswordEvent.value=false
     }
 
     override fun onCleared() {
         super.onCleared()
 
-    }
-
-    fun onShowPasswordEvent(){
-        _showPasswordEvent.value=true
-    }
-
-    fun onHidePasswordEvent(){
-        _showPasswordEvent.value=false
     }
 
 

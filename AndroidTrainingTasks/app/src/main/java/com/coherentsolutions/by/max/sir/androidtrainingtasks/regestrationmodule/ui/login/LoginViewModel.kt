@@ -1,5 +1,6 @@
 package com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login
 
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +9,7 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.data.LoginRepositor
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.data.Result
 
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
@@ -27,6 +29,11 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         } else {
             _loginResult.value = LoginResult(error = R.string.login_failed)
         }
+    }
+
+
+    fun SaveUser(user: User){
+
     }
 
     fun loginDataChanged(username: String, password: String) {

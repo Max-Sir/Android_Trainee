@@ -1,6 +1,7 @@
 package com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -18,15 +19,20 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.Activit
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.HomeActivity
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
+import com.google.gson.Gson
 
 class LoginActivity : AppCompatActivity() {
 
+
+    private lateinit var preferences: SharedPreferences
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        preferences=getSharedPreferences("USER", MODE_PRIVATE)
+        val edit=preferences.edit()
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -65,14 +71,20 @@ class LoginActivity : AppCompatActivity() {
             setResult(RESULT_OK)
 
             //Complete and destroy login activity once successful
+
+            val gson=Gson().toJson(User(
+                username = "${binding.username.text}",
+                password = "${binding.password.text}"
+            ))
+            edit.putString("USER",gson).apply()
             val intent =
-                Intent(this, HomeActivity::class.java).putExtra(
-                    "USER",
-                    User(
-                        username = "${binding.username.text}",
-                        password = "${binding.password.text}"
-                    )
-                )
+                Intent(this, HomeActivity::class.java)//.putExtra(
+//                    "USER",
+//                    User(
+//                        username = "${binding.username.text}",
+//                        password = "${binding.password.text}"
+//                    )
+//                )
             startActivity(intent)
         })
 

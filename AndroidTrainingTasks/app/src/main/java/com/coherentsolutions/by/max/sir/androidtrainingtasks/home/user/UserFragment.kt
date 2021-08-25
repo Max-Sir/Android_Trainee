@@ -1,6 +1,8 @@
 package com.coherentsolutions.by.max.sir.androidtrainingtasks.home.user
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.InputType
@@ -16,7 +18,9 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.UserFragmentBinding
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.utils.AsteriskPasswordTransformationMethod
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textfield.TextInputLayout
+import com.google.gson.Gson
 
 class UserFragment : Fragment() {
 
@@ -28,6 +32,7 @@ class UserFragment : Fragment() {
         }
     }
 
+    private lateinit var preferences: SharedPreferences
     private lateinit var viewModel: UserViewModel
 
 //    private lateinit var arguments:UserFragmentArgs
@@ -37,7 +42,9 @@ class UserFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val user:User=activity?.intent?.getSerializableExtra("USER") as User
+        preferences= context?.getSharedPreferences("USER", Context.MODE_PRIVATE)!!
+
+        val user:User=Gson().fromJson(preferences.getString("USER", ""),User::class.java) as User
         //val argumentsUser=UserFragmentArgs.fromBundle(arguments!!)
         //val user= argumentsUser.toBundle().get("USER") as User
         val viewModelFactory:UserViewModelFactory= UserViewModelFactory(user)
@@ -45,36 +52,11 @@ class UserFragment : Fragment() {
         val binding:UserFragmentBinding= DataBindingUtil.inflate(inflater,R.layout.user_fragment,container,false)
         //binding.user=user
         binding.user=viewModel.user.value
+
+
+
         //binding.passwordEditText.setText(user.password)
-        viewModel.showPasswordEvent.observe(this, Observer { isPressed->
-            if(isPressed){
-                binding.passwordEditText.inputType=InputType.TYPE_CLASS_TEXT
-            }
-            else{
-                binding.passwordEditText.inputType=InputType.TYPE_TEXT_VARIATION_PASSWORD
-            }
-        })
 
-        
-
-//        binding.inputLayout.setEndIconOnClickListener {
-//            if(binding.inputLayout.isEndIconCheckable){
-//
-//            }
-//        }
-
-        binding.inputLayout.setStartIconOnClickListener{
-            Log.i("ABC","CLICKED")
-        }
-
-        binding.passwordEditText.setOnClickListener {
-            if(viewModel.showPasswordEvent.value!!){
-                 viewModel.onShowPasswordEvent()
-            }
-            else{
-                viewModel.onHidePasswordEvent()
-            }
-        }
         return binding.root
     }
 
