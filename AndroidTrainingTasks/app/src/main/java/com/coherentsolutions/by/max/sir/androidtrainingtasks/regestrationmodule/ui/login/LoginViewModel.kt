@@ -64,7 +64,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 
     // A placeholder password validation check
     fun isPasswordValid(password: String): Boolean {
-        return password.length > 8
+        return password.length >= 8
                 && password.all { it in '!'..'~' }
                 && password.any { it !in 'A'..'Z' && it !in 'a'..'z' && it !in '0'..'9' }
                 && password.any { it in 'A'..'Z' }
