@@ -28,7 +28,7 @@ class HomeActivity : AppCompatActivity() {
         val bottomNavigationItem = binding.bottomNavigation
 
         val navController = this.findNavController(R.id.myNavHostFragment)
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.userFragment, R.id.petsFragment))
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.userFragment, R.id.petsFragment),)
         setupActionBarWithNavController(navController, appBarConfiguration)
         bottomNavigationItem.setupWithNavController(navController)
         val user = intent.extras?.get("USER") as User

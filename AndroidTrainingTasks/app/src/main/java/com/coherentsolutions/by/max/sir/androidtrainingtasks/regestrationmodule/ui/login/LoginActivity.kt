@@ -17,8 +17,6 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.Activit
 
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.HomeActivity
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.LOGIN
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.PASSWORD
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
 
 class LoginActivity : AppCompatActivity() {
