@@ -2,7 +2,7 @@ package com.coherentsolutions.by.max.sir.androidtrainingtasks.home.utils;
 
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
-
+//is useful for transformation of password
 public class AsteriskPasswordTransformationMethod extends PasswordTransformationMethod {
     @Override
     public CharSequence getTransformation(CharSequence source, View view) {
