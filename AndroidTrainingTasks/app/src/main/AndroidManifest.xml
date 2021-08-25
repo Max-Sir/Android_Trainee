@@ -10,9 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidTrainingTasks">
         <activity
+            android:screenOrientation="portrait"
             android:label="Home Activity"
             android:name=".home.HomeActivity"></activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".regestrationmodule.ui.login.LoginActivity">
             <!--android:label="@string/title_activity_login">-->
             <intent-filter>
