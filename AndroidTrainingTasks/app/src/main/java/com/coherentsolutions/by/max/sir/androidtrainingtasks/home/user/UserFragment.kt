@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.UserFragmentBinding
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.utils.AsteriskPasswordTransformationMethod
+import com.google.android.material.textfield.TextInputLayout
 
 class UserFragment : Fragment() {
 
@@ -53,9 +55,17 @@ class UserFragment : Fragment() {
             }
         })
 
-        binding.inputLayout.isStartIconCheckable
+        
 
-        binding.passwordEditText.transformationMethod=AsteriskPasswordTransformationMethod()
+//        binding.inputLayout.setEndIconOnClickListener {
+//            if(binding.inputLayout.isEndIconCheckable){
+//
+//            }
+//        }
+
+        binding.inputLayout.setStartIconOnClickListener{
+            Log.i("ABC","CLICKED")
+        }
 
         binding.passwordEditText.setOnClickListener {
             if(viewModel.showPasswordEvent.value!!){
