@@ -5,19 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
 
-class UserViewModel(username:String,password:String) : ViewModel() {
+class UserViewModel : ViewModel() {
 
-    val _user=MutableLiveData<User>()
-    val user:LiveData<User>
-    get()=_user
+    val _user = MutableLiveData<User>()
+    val user: LiveData<User>
+        get() = _user
 
 
-    init{
-
-    }
-
-    override fun onCleared() {
-        super.onCleared()
+    init {
 
     }
+
 }

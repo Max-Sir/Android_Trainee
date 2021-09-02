@@ -1,24 +1,22 @@
 package com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login
 
 import android.content.Intent
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
-import androidx.core.app.ShareCompat
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.ActivityLoginBinding
-
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.ActivityLoginBinding
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.HomeActivity
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.LOGIN
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.PASSWORD
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.HomeActivity.Companion.LOGIN
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.HomeActivity.Companion.PASSWORD
 
 class LoginActivity : AppCompatActivity() {
 
@@ -107,11 +105,10 @@ class LoginActivity : AppCompatActivity() {
 
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome)
-        val displayName = model.displayName
         // TODO : initiate successful logged in experience
         Toast.makeText(
             applicationContext,
-            "$welcome ${binding.username.text}",
+            "$welcome ${binding.username.text ?: model.displayName}",
             Toast.LENGTH_LONG
         ).show()
     }
