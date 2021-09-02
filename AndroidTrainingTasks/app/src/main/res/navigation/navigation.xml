@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/userFragment">
+
+    <fragment
+        android:id="@id/userFragment"
+        android:name="com.coherentsolutions.by.max.sir.androidtrainingtasks.home.user.UserFragment"
+        android:label="User">
+        <argument
+            android:name="login"
+            app:argType="string" />
+        <argument
+            android:name="password"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@id/petsFragment"
+        android:name="com.coherentsolutions.by.max.sir.androidtrainingtasks.home.pets.PetsFragment"
+        android:label="Pets List" />
+</navigation>

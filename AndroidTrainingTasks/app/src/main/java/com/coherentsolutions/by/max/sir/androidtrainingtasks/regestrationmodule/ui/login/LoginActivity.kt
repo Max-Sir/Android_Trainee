@@ -1,19 +1,22 @@
 package com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import android.content.Intent
 import android.os.Bundle
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.ActivityLoginBinding
-
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.ActivityLoginBinding
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.HomeActivity
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.HomeActivity.Companion.LOGIN
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.HomeActivity.Companion.PASSWORD
 
 class LoginActivity : AppCompatActivity() {
 
@@ -61,7 +64,10 @@ class LoginActivity : AppCompatActivity() {
             setResult(RESULT_OK)
 
             //Complete and destroy login activity once successful
-            finish()
+            val intent =
+                Intent(this, HomeActivity::class.java).putExtra(LOGIN, "${binding.username.text}")
+                    .putExtra(PASSWORD, "${binding.password.text}")
+            startActivity(intent)
         })
 
         username.afterTextChanged {
@@ -99,11 +105,10 @@ class LoginActivity : AppCompatActivity() {
 
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome)
-        val displayName = model.displayName
         // TODO : initiate successful logged in experience
         Toast.makeText(
             applicationContext,
-            "$welcome $displayName",
+            "$welcome ${binding.username.text ?: model.displayName}",
             Toast.LENGTH_LONG
         ).show()
     }

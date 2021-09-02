@@ -8,4 +8,5 @@
     <string name="invalid_username">Not a valid username\nit should contain A..z and %$.#_-</string>
     <string name="invalid_password"><![CDATA[Password must be >8 characters\nand it must contain at least one upper, lower, letters\nspecial signs f.e. #@$%…\nand at least one digit]]></string>
     <string name="login_failed">"Login failed"</string>
+    <string name="this_is_user_fragment">THIS IS USER FRAGMENT</string>
 </resources>
