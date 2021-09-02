@@ -7,7 +7,7 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.Pet
 
 class PetsViewModel : ViewModel() {
 
-    private val _pets = MutableLiveData<List<Pet>>()   //TODO(dataabase.getAllPets())
+    private val _pets = MutableLiveData<List<Pet>>()
     val pets: LiveData<List<Pet>>
         get() = _pets
 }
