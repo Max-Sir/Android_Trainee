@@ -13,9 +13,9 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.PetsFra
 class PetsFragment : Fragment() {
 
 
-    private lateinit var viewModel:PetsViewModel
-    private lateinit var viewModelFactory:PetsViewModelFactory
-    private lateinit var binding:PetsFragmentBinding
+    private lateinit var viewModel: PetsViewModel
+    private lateinit var viewModelFactory: PetsViewModelFactory
+    private lateinit var binding: PetsFragmentBinding
 
     companion object {
         fun newInstance() = PetsFragment()
@@ -25,13 +25,12 @@ class PetsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding=DataBindingUtil.inflate(inflater,R.layout.pets_fragment, container, false)
-        viewModelFactory= PetsViewModelFactory()
-        viewModel=ViewModelProvider(this,viewModelFactory).get(PetsViewModel::class.java)
+    ): View {
+        binding = DataBindingUtil.inflate(inflater, R.layout.pets_fragment, container, false)
+        viewModelFactory = PetsViewModelFactory()
+        viewModel = ViewModelProvider(this, viewModelFactory).get(PetsViewModel::class.java)
         return binding.root
     }
-
 
 
 }

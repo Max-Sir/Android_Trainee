@@ -9,10 +9,7 @@ class PetsViewModel : ViewModel() {
 
 
     private val _pets = MutableLiveData<List<Pet>>()   //TODO(dataabase.getAllPets())
-    val pets:LiveData<List<Pet>>
-    get()=_pets
+    val pets: LiveData<List<Pet>>
+        get() = _pets
 
-    override fun onCleared() {
-        super.onCleared()
-    }
 }

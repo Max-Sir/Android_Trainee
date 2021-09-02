@@ -5,10 +5,10 @@ import androidx.lifecycle.ViewModelProvider
 import java.lang.IllegalArgumentException
 
 @Suppress("UNCHECKED_CAST")
-class PetsViewModelFactory(/*TODO(something)*/):ViewModelProvider.Factory {
+class PetsViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if(modelClass.isAssignableFrom(PetsViewModel::class.java)){
-            return PetsViewModel(/*TODO(something)*/) as T
+        if (modelClass.isAssignableFrom(PetsViewModel::class.java)) {
+            return PetsViewModel() as T
         }
         throw IllegalArgumentException("Can not create this ViewModel class")
     }
