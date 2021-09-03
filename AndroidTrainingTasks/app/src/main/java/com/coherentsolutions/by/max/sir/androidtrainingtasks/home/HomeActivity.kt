@@ -16,7 +16,7 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.user.UserFragm
 class HomeActivity : AppCompatActivity() {
 
     companion object {
-        val USER = "USER"
+        const val USER = "USER"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

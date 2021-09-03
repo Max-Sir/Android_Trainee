@@ -13,11 +13,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.StoreApplication
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.ActivityLoginBinding
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.HomeActivity
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.SharedPrefUserPersistance
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.UserPersistance
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login.service.persistence
 
 class LoginActivity : AppCompatActivity() {
 
@@ -67,14 +67,16 @@ class LoginActivity : AppCompatActivity() {
 
             //Complete and destroy login activity once successful
 
-            SharedPrefUserPersistance(StoreApplication.preferences).saveUser(
-                (User(
+            val persistance = persistence<UserPersistance>()
+            persistance.saveUser(
+                User(
                     username = "${binding.username.text}",
                     password = "${binding.password.text}"
-                )))
+                )
+            )
 
-                val intent =
-            Intent(this, HomeActivity::class.java)
+            val intent =
+                Intent(this, HomeActivity::class.java)
             startActivity(intent)
         })
 

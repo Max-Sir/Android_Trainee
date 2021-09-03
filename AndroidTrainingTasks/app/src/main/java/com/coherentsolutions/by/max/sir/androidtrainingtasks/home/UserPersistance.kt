@@ -5,6 +5,6 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
 import com.google.gson.Gson
 
 interface UserPersistance {
-    fun loadUser()
+    fun loadUser():User
     fun saveUser(user:User)
 }
