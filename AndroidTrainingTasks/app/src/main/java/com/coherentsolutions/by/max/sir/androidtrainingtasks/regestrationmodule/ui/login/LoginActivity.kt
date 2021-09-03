@@ -67,8 +67,8 @@ class LoginActivity : AppCompatActivity() {
 
             //Complete and destroy login activity once successful
 
-            val persistance = persistence<UserPersistance>()
-            persistance.saveUser(
+            val persistence = persistence<UserPersistance>()
+            persistence.saveUser(
                 User(
                     username = "${binding.username.text}",
                     password = "${binding.password.text}"
