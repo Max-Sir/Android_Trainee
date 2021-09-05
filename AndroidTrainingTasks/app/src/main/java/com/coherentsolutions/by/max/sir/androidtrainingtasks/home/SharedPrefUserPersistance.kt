@@ -11,6 +11,11 @@ import com.google.gson.Gson
 
 class SharedPrefUserPersistance(val context: Context) : UserPersistance {
 
+
+    init{
+        Log.i(MyApplication.INFO_TAG, "User persistence instantiated")
+    }
+
     override fun loadUser():User {
         val preferences = context.getSharedPreferences(USER, MODE_PRIVATE)
         val user: User =

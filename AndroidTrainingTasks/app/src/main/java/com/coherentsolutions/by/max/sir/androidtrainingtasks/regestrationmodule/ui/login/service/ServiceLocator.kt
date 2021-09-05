@@ -9,6 +9,7 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.UserPersistanc
 import kotlin.reflect.KClass
 
 @SuppressLint("StaticFieldLeak")
+@Suppress("UNCHECKED_CAST")
 object ServiceLocator {
 
     var context: Context? = null
@@ -23,17 +24,13 @@ object ServiceLocator {
     }
 
     fun <T> getPersistence(service: KClass<*>): T {
-        Log.i(INFO_TAG, "service created")
+        Log.i(INFO_TAG, "GET PERSISTENCE CALL")
 
         return when (service) {
             // PetPersistence::class -> DefaultPetPersistence() as T
-            UserPersistance::class -> {
-                run{
-                    Log.i(INFO_TAG, "User persistence instantiated")
-                }
-                SharedPrefUserPersistance(context!!) as T
-            }
+            UserPersistance::class -> SharedPrefUserPersistance(context!!) as T
             else -> {
+                Log.i(INFO_TAG,"BAD PERSISTENCE - NOT CREATED")
                 throw Exception("wrong persistence $service")
             }
         }
@@ -45,12 +42,12 @@ class PetstoreService
 class RetrofitService
 
 inline fun <reified T> service(): T {
-    Log.i(INFO_TAG, "service created")
+    Log.i(INFO_TAG, "SERVICE FUN")
     return ServiceLocator.getService(T::class)
 }
 
 inline fun <reified T> persistence(): T {
-    Log.i(INFO_TAG, "persistence created")
+    Log.i(INFO_TAG, "PERSISTENCE FUN CALL")
 
     return ServiceLocator.getPersistence(T::class)
 }

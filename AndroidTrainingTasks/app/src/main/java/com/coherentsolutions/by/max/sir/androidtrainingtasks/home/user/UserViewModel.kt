@@ -1,8 +1,10 @@
 package com.coherentsolutions.by.max.sir.androidtrainingtasks.home.user
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
 
 class UserViewModel(user: User) : ViewModel() {
@@ -12,6 +14,7 @@ class UserViewModel(user: User) : ViewModel() {
         get() = _user
 
     init {
+        Log.i(MyApplication.INFO_TAG,"INIT USER VIEW MODEL CALLED")
         _user.value = user
     }
 }

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -12,6 +13,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.INFO_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.ActivityLoginBinding
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.HomeActivity
@@ -26,11 +28,13 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.i(INFO_TAG,"LOGIN ACTIVITY ON CREATE()")
         super.onCreate(savedInstanceState)
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        Log.i(INFO_TAG,"LOGIN ACTIVITY INFLATED")
         val username = binding.username
         val password = binding.password
         val login = binding.login
@@ -67,6 +71,7 @@ class LoginActivity : AppCompatActivity() {
 
             //Complete and destroy login activity once successful
 
+            Log.i(INFO_TAG,"LOGIN ACTIVITY - USER SAVE() TO SHARED PREF BY PERSISTENCE")
             val persistence = persistence<UserPersistance>()
             persistence.saveUser(
                 User(
@@ -74,10 +79,16 @@ class LoginActivity : AppCompatActivity() {
                     password = "${binding.password.text}"
                 )
             )
+            Log.i(INFO_TAG,"LOGIN ACTIVITY - USER SAVED TO SHARED PREF BY PERSISTENCE SUCCESSFULLY")
+
 
             val intent =
                 Intent(this, HomeActivity::class.java)
+            Log.i(INFO_TAG,"LOGIN ACTIVITY - INTENT SUCCESSFULLY INSTATED")
+
             startActivity(intent)
+            Log.i(INFO_TAG,"LOGIN ACTIVITY - STARTED ACTIVITY ${HomeActivity::class.simpleName}")
+
         })
 
         username.afterTextChanged {
