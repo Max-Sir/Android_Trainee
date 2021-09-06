@@ -1,5 +1,6 @@
 package com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login
 
+
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,6 +10,7 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Compa
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.data.LoginRepository
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.data.Result
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
+
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 

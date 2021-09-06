@@ -10,6 +10,7 @@ class UserViewModelFactory(var user: User) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
             return UserViewModel(user) as T
+
         }
         throw IllegalArgumentException("Unavailable ViewModel class")
     }

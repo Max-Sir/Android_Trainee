@@ -1,8 +1,8 @@
 package com.coherentsolutions.by.max.sir.androidtrainingtasks.home
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -11,9 +11,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.INFO_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.ActivityHomeBinding
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.user.UserFragment
-
 
 class HomeActivity : AppCompatActivity() {
 

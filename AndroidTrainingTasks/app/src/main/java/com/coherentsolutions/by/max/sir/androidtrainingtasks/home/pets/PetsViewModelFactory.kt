@@ -2,13 +2,13 @@ package com.coherentsolutions.by.max.sir.androidtrainingtasks.home.pets
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import java.lang.IllegalArgumentException
 
 @Suppress("UNCHECKED_CAST")
 class PetsViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(PetsViewModel::class.java)) {
             return PetsViewModel() as T
+
         }
         throw IllegalArgumentException("Can not create this ViewModel class")
     }

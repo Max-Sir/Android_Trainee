@@ -52,6 +52,7 @@ class UserFragment : Fragment() {
 
         Log.i(INFO_TAG,"binded layoyout and fragment inflated")
 
+
         return binding.root
     }
 

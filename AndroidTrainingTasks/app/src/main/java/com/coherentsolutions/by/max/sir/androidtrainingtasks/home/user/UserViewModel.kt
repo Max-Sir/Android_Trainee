@@ -17,4 +17,5 @@ class UserViewModel(user: User) : ViewModel() {
         Log.i(MyApplication.INFO_TAG,"INIT USER VIEW MODEL CALLED")
         _user.value = user
     }
+
 }

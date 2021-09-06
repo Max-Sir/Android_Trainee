@@ -21,6 +21,7 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.UserPersistanc
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login.service.persistence
 
+
 class LoginActivity : AppCompatActivity() {
 
 
