@@ -13,6 +13,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.room.PrimaryKey
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.INFO_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.ActivityLoginBinding
@@ -20,6 +21,8 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.HomeActivity
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.UserPersistance
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login.service.persistence
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlin.random.Random
 
 
 class LoginActivity : AppCompatActivity() {
@@ -29,17 +32,19 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.i(INFO_TAG,"LOGIN ACTIVITY ON CREATE()")
+        Log.i(INFO_TAG, "LOGIN ACTIVITY ON CREATE()")
         super.onCreate(savedInstanceState)
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Log.i(INFO_TAG,"LOGIN ACTIVITY INFLATED")
+        Log.i(INFO_TAG, "LOGIN ACTIVITY INFLATED")
         val username = binding.username
         val password = binding.password
         val login = binding.login
         val loading = binding.loading
+        val email = binding.emailEditLogin
+        val phone = binding.phoneEditLogin
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
@@ -55,6 +60,12 @@ class LoginActivity : AppCompatActivity() {
             }
             if (loginState.passwordError != null) {
                 password.error = getString(loginState.passwordError)
+            }
+            if(loginState.phoneError != null){
+                phone.error=getString(loginState.phoneError)
+            }
+            if(loginState.emailError != null){
+                email.error=getString(loginState.emailError)
             }
         })
 
@@ -72,30 +83,59 @@ class LoginActivity : AppCompatActivity() {
 
             //Complete and destroy login activity once successful
 
-            Log.i(INFO_TAG,"LOGIN ACTIVITY - USER SAVE() TO SHARED PREF BY PERSISTENCE")
+            Log.i(INFO_TAG, "LOGIN ACTIVITY - USER SAVE() TO SHARED PREF BY PERSISTENCE")
             val persistence = persistence<UserPersistance>()
             persistence.saveUser(
                 User(
+                    email = "${binding.emailEditLogin.text}",
+                    phone = "${binding.phoneEditLogin.text}",
+                    userStatus = 0,
+                    id = Random.nextInt(),
+                    lastName = "${binding.lastnameEditLogin.text}",
+                    firstName = "${binding.firstnameEditLogin.text}",
                     username = "${binding.username.text}",
                     password = "${binding.password.text}"
                 )
             )
-            Log.i(INFO_TAG,"LOGIN ACTIVITY - USER SAVED TO SHARED PREF BY PERSISTENCE SUCCESSFULLY")
+            Log.i(
+                INFO_TAG,
+                "LOGIN ACTIVITY - USER SAVED TO SHARED PREF BY PERSISTENCE SUCCESSFULLY"
+            )
 
 
             val intent =
                 Intent(this, HomeActivity::class.java)
-            Log.i(INFO_TAG,"LOGIN ACTIVITY - INTENT SUCCESSFULLY INSTATED")
+            Log.i(INFO_TAG, "LOGIN ACTIVITY - INTENT SUCCESSFULLY INSTATED")
 
             startActivity(intent)
-            Log.i(INFO_TAG,"LOGIN ACTIVITY - STARTED ACTIVITY ${HomeActivity::class.simpleName}")
+            Log.i(INFO_TAG, "LOGIN ACTIVITY - STARTED ACTIVITY ${HomeActivity::class.simpleName}")
 
         })
 
         username.afterTextChanged {
             loginViewModel.loginDataChanged(
                 username.text.toString(),
-                password.text.toString()
+                password.text.toString(),
+                email_edit_login.text.toString(),
+                phone_edit_login.text.toString()
+            )
+        }
+
+        email.afterTextChanged {
+            loginViewModel.loginDataChanged(
+                username.text.toString(),
+                password.text.toString(),
+                email_edit_login.text.toString(),
+                phone_edit_login.text.toString()
+            )
+        }
+
+        phone.afterTextChanged {
+            loginViewModel.loginDataChanged(
+                username.text.toString(),
+                password.text.toString(),
+                email_edit_login.text.toString(),
+                phone_edit_login.text.toString()
             )
         }
 
@@ -103,16 +143,21 @@ class LoginActivity : AppCompatActivity() {
             afterTextChanged {
                 loginViewModel.loginDataChanged(
                     username.text.toString(),
-                    password.text.toString()
+                    password.text.toString(),
+                    email_edit_login.text.toString(),
+                    phone_edit_login.text.toString()
                 )
             }
+
 
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
                         loginViewModel.login(
                             username.text.toString(),
-                            password.text.toString()
+                            password.text.toString(),
+                            email.text.toString(),
+                            phone.text.toString()
                         )
                 }
                 false
@@ -120,7 +165,12 @@ class LoginActivity : AppCompatActivity() {
 
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
+                loginViewModel.login(
+                    username.text.toString(),
+                    password.text.toString(),
+                    email.text.toString(),
+                    phone.text.toString()
+                )
             }
         }
     }

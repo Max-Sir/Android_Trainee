@@ -5,11 +5,7 @@ import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
 @Parcelize
-data class Pet(
-    val category: Category,
+data class Tag(
     val id: Int,
-    val name: String,
-    val photoUrls: List<String>,
-    val status: String,
-    val tags: List<Tag>
+    val name: String
 ):Parcelable,Serializable

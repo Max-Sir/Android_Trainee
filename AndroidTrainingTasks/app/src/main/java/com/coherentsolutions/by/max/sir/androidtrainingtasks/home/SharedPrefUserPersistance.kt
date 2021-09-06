@@ -6,7 +6,6 @@ import android.util.Log
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.HomeActivity.Companion.USER
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login.service.ServiceLocator.context
 import com.google.gson.Gson
 
 class SharedPrefUserPersistance(val context: Context) : UserPersistance {

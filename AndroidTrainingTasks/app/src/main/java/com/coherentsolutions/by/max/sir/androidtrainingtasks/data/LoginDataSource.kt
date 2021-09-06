@@ -10,7 +10,12 @@ import java.io.IOException
 @Suppress("UNUSED_PARAMETER")
 class LoginDataSource {
 
-    fun login(username: String, password: String): Result<LoggedInUser> {
+    fun login(
+        username: String,
+        password: String,
+        email: String,
+        phone: String
+    ): Result<LoggedInUser> {
         try {
             // TODO: handle loggedInUser authentication
             val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), "Jane Doe")

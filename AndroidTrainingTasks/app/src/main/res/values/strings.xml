@@ -13,4 +13,10 @@
     <string name="your_password">Your Password:</string>
     <string name="your_username_will_appeare_here">Your Username will appeare here</string>
     <string name="your_username">your username</string>
+    <string name="your_email_welcome">Your email:</string>
+    <string name="your_surname_welcome">Your Surname</string>
+    <string name="your_name_welcome">Your name</string>
+    <string name="your_phone_welcome">Your phone:</string>
+    <string name="invalid_email">check if your email is correct</string>
+    <string name="invalid_phone_number">the number you did writed is incorrect</string>
 </resources>
