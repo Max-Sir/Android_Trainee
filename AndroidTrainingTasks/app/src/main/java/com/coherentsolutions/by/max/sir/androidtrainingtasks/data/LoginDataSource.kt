@@ -6,6 +6,8 @@ import java.io.IOException
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
+
+@Suppress("UNUSED_PARAMETER")
 class LoginDataSource {
 
     fun login(username: String, password: String): Result<LoggedInUser> {

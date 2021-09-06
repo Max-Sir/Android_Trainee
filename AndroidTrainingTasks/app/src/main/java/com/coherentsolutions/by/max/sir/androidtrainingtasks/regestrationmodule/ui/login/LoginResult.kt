@@ -1,5 +1,7 @@
 package com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login
 
+
+
 /**
  * Authentication result : success (user details) or error message.
  */
