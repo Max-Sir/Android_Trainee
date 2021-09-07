@@ -1,6 +1,11 @@
 package com.coherentsolutions.by.max.sir.androidtrainingtasks.data
 
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.data.model.LoggedInUser
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.RetrofitService
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login.service.ServiceLocator
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login.service.service
+import com.google.gson.Gson
+import retrofit2.http.Body
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -37,7 +42,6 @@ class LoginRepository(val dataSource: LoginDataSource) {
     ): Result<LoggedInUser> {
         // handle login
         val result = dataSource.login(username, password,email,phone,firstname,lastname)
-
         if (result is Result.Success) {
             setLoggedInUser(result.data)
         }

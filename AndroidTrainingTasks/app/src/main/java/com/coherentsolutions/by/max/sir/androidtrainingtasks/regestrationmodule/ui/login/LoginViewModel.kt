@@ -2,14 +2,28 @@ package com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule
 
 
 import android.util.Log
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import android.util.Patterns
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.INFO_TAG
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.SERVER_TAG
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.uiScope
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.data.LoginRepository
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.data.Result
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.UserPersistance
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.RetrofitService
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.ServerResponse
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login.service.persistence
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login.service.service
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
@@ -20,9 +34,16 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
-    fun login(username: String, password: String,email:String,phone:String,firstname:String,lastname: String) {
+    fun login(
+        username: String,
+        password: String,
+        email: String,
+        phone: String,
+        firstname: String,
+        lastname: String
+    ) {
         // can be launched in a separate asynchronous job
-        val result = loginRepository.login(username, password,email,phone,firstname,lastname)
+        val result = loginRepository.login(username, password, email, phone, firstname, lastname)
 
         Log.i(INFO_TAG, "LOGIN VIEW MODEL FUN")
         if (result is Result.Success) {
@@ -37,7 +58,14 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         Log.i(INFO_TAG, "LOGIN VIEW MODEL FUN FINISHED")
     }
 
-    fun loginDataChanged(username: String, password: String, email: String, phone: String,firstname: String,lastname: String) {
+    fun loginDataChanged(
+        username: String,
+        password: String,
+        email: String,
+        phone: String,
+        firstname: String,
+        lastname: String
+    ) {
         when {
             !isUserNameValid(username) -> {
                 _loginForm.value = LoginFormState(
@@ -65,8 +93,8 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                 )
             }
 
-            !isPhoneValid(phone) ->{
-                _loginForm.value=LoginFormState(phoneError=R.string.invalid_phone_number)
+            !isPhoneValid(phone) -> {
+                _loginForm.value = LoginFormState(phoneError = R.string.invalid_phone_number)
             }
 
             else -> {
@@ -78,16 +106,43 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         Log.i(INFO_TAG, "LOGIN DATA CHANGED VIEW MODEL FUN FINISHED")
     }
 
+    fun postUser(user: User) {
+        val retrofitService = service<RetrofitService>()
+        val x = retrofitService.createUser(user)
+        x.enqueue(object : Callback<ServerResponse> {
+            override fun onResponse(
+                call: Call<ServerResponse>,
+                response: Response<ServerResponse>
+            ) {
+                Log.d(SERVER_TAG, "GOOD REQUEST ${response.body().toString()}")
+            }
+
+            override fun onFailure(call: Call<ServerResponse>, t: Throwable) {
+                Log.d(SERVER_TAG, "BAD REQUEST ${t.message}")
+            }
+        })
+    }
+
+    //may be thick place of the app
+    fun saveUserToPersistence(user: User) {
+        uiScope.launch {
+            withContext(Dispatchers.IO) {
+                val persistence = persistence<UserPersistance>()
+                persistence.saveUser(user)
+            }
+        }
+    }
+
     private fun isLastNameValid(lastname: String): Boolean {
-        return lastname!=""
+        return lastname != ""
     }
 
     private fun isFirstNameValid(firstname: String): Boolean {
-        return firstname!=""
+        return firstname != ""
     }
 
     private fun isPhoneValid(phone: String): Boolean {
-        Log.i(INFO_TAG,"PHONE VALIDATION CALL")
+        Log.i(INFO_TAG, "PHONE VALIDATION CALL")
         return Patterns.PHONE.matcher(phone).matches()
     }
 

@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.INFO_TAG
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.DefaultPetPersistence
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.PetPersistence
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.SharedPrefUserPersistance
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.UserPersistance
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.PetstoreService
@@ -30,10 +32,11 @@ object ServiceLocator {
         Log.i(INFO_TAG, "GET PERSISTENCE CALL")
 
         return when (service) {
-            //PetPersistence::class -> DefaultPetPersistence() as T
+            //TODO("implement DefaultPetPersistence::class next steps, it's an template for the future")
+            PetPersistence::class -> DefaultPetPersistence() as T
             UserPersistance::class -> SharedPrefUserPersistance(context!!) as T
             else -> {
-                Log.i(INFO_TAG,"BAD PERSISTENCE - NOT CREATED")
+                Log.i(INFO_TAG, "BAD PERSISTENCE - NOT CREATED")
                 throw Exception("wrong persistence $service")
             }
         }
