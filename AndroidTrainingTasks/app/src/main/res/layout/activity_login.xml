@@ -66,70 +66,103 @@
                 tools:text=";378(oIj" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/phone_edit_login"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:selectAllOnFocus="true"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/your_phone_welcome"
-            android:inputType="phone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.466"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/passwordLauoyt"
-            tools:ignore="Autofill,LabelFor"
-            tools:text="+375-29-393-33-14" />
 
-        <EditText
-            android:hint="@string/your_email_welcome"
-            android:id="@+id/email_edit_login"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:inputType="textEmailAddress"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.466"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/phone_edit_login"
-            tools:text="syromolotov.maks@gmail.com"
-            tools:ignore="Autofill,LabelFor" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/phone_edit_login_layout"
 
-        <EditText
-            android:id="@+id/lastname_edit_login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
-            android:hint="@string/your_surname_welcome"
-            android:inputType="textPersonName"
+            app:endIconDrawable="@drawable/ic_baseline_phone_24"
+            app:endIconMode="custom"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.466"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email_edit_login"
-            tools:ignore="Autofill,LabelFor"
-            tools:text="Syromolotov" />
+            app:layout_constraintTop_toBottomOf="@+id/passwordLauoyt">
 
-        <EditText
-            android:id="@+id/firstname_edit_login"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phone_edit_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="@string/your_phone_welcome"
+                android:inputType="phone"
+                android:selectAllOnFocus="true"
+
+
+                tools:ignore="Autofill,LabelFor"
+                tools:text="+375-29-393-33-14" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email_edit_login_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
-            android:hint="@string/your_name_welcome"
-            android:inputType="textPersonName"
+            app:endIconDrawable="@drawable/ic_baseline_alternate_email_24"
+            app:endIconMode="custom"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.466"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lastname_edit_login"
-            tools:ignore="Autofill,LabelFor"
-            tools:text="Max" />
+            app:layout_constraintTop_toBottomOf="@+id/phone_edit_login_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email_edit_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/your_email_welcome"
+                android:inputType="textEmailAddress"
+                tools:ignore="Autofill,LabelFor"
+                tools:text="syromolotov.maks@gmail.com" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/lastname_edit_login_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            app:endIconDrawable="@drawable/ic_baseline_text_format_24"
+            app:endIconMode="custom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email_edit_login_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/lastname_edit_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/your_surname_welcome"
+                android:inputType="textPersonName"
+                tools:ignore="Autofill,LabelFor"
+                tools:text="Syromolotov" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/firstname_edit_login_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lastname_edit_login_layout"
+            android:layout_marginTop="8dp"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/ic_baseline_text_format_24"
+            android:layout_marginEnd="24dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/firstname_edit_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/your_name_welcome"
+                android:inputType="textPersonName"
+                tools:ignore="Autofill,LabelFor"
+                tools:text="Max" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/login"
@@ -147,7 +180,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/phone_edit_login"
+            app:layout_constraintTop_toBottomOf="@+id/phone_edit_login_layout"
             app:layout_constraintVertical_bias="1.0" />
 
         <ProgressBar

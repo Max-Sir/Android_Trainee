@@ -9,14 +9,14 @@
     <string name="invalid_password"><![CDATA[Password must be >8 characters\nand it must contain at least one upper, lower, letters\nspecial signs f.e. #@$%…\nand at least one digit]]></string>
     <string name="login_failed">"Login failed"</string>
     <string name="this_is_user_fragment">THIS IS USER FRAGMENT</string>
-    <string name="username_string">username</string>
-    <string name="your_password">Your Password:</string>
-    <string name="your_username_will_appeare_here">Your Username will appeare here</string>
-    <string name="your_username">your username</string>
-    <string name="your_email_welcome">Your email:</string>
-    <string name="your_surname_welcome">Your Surname</string>
-    <string name="your_name_welcome">Your name</string>
-    <string name="your_phone_welcome">Your phone:</string>
+    <string name="username_string">username:</string>
+    <string name="your_password">your password:</string>
+    <string name="your_username_will_appeare_here">your username:</string>
+    <string name="your_username">username:</string>
+    <string name="your_email_welcome">email:</string>
+    <string name="your_surname_welcome">surname:</string>
+    <string name="your_name_welcome">name:</string>
+    <string name="your_phone_welcome">phone:</string>
     <string name="invalid_email">check if your email is correct</string>
-    <string name="invalid_phone_number">the number you did writed is incorrect</string>
+    <string name="invalid_phone_number">the number you did write is incorrect</string>
 </resources>
