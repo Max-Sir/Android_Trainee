@@ -93,19 +93,19 @@ class LoginActivity : AppCompatActivity() {
             //Complete and destroy login activity once successful
 
             Log.i(INFO_TAG, "LOGIN ACTIVITY - USER SAVE() TO SHARED PREF BY PERSISTENCE")
-            val persistence = persistence<UserPersistance>()
-            persistence.saveUser(
-                User(
-                    email = "${binding.emailEditLogin.text}",
-                    phone = "${binding.phoneEditLogin.text}",
-                    userStatus = 0,
-                    id = Random.nextInt(),
-                    lastName = "${binding.lastnameEditLogin.text}",
-                    firstName = "${binding.firstnameEditLogin.text}",
-                    username = "${binding.username.text}",
-                    password = "${binding.password.text}"
-                )
+
+            val user=User(
+                email = "${binding.emailEditLogin.text}",
+                phone = "${binding.phoneEditLogin.text}",
+                userStatus = 0,
+                id = Random.nextInt(),
+                lastName = "${binding.lastnameEditLogin.text}",
+                firstName = "${binding.firstnameEditLogin.text}",
+                username = "${binding.username.text}",
+                password = "${binding.password.text}"
             )
+            loginViewModel.saveUserToPersistence(user)
+            //loginViewModel.postUser(user)
             Log.i(
                 INFO_TAG,
                 "LOGIN ACTIVITY - USER SAVED TO SHARED PREF BY PERSISTENCE SUCCESSFULLY"
