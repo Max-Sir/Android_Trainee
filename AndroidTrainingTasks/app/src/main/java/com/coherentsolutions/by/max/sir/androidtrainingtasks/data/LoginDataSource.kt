@@ -14,7 +14,9 @@ class LoginDataSource {
         username: String,
         password: String,
         email: String,
-        phone: String
+        phone: String,
+        firstname: String,
+        lastname: String
     ): Result<LoggedInUser> {
         try {
             // TODO: handle loggedInUser authentication

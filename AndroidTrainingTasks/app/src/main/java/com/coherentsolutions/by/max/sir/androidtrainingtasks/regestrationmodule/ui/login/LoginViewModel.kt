@@ -1,7 +1,6 @@
 package com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login
 
 
-import android.provider.ContactsContract
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -21,9 +20,9 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
-    fun login(username: String, password: String,email:String,phone:String) {
+    fun login(username: String, password: String,email:String,phone:String,firstname:String,lastname: String) {
         // can be launched in a separate asynchronous job
-        val result = loginRepository.login(username, password,email,phone)
+        val result = loginRepository.login(username, password,email,phone,firstname,lastname)
 
         Log.i(INFO_TAG, "LOGIN VIEW MODEL FUN")
         if (result is Result.Success) {
@@ -38,7 +37,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         Log.i(INFO_TAG, "LOGIN VIEW MODEL FUN FINISHED")
     }
 
-    fun loginDataChanged(username: String, password: String, email: String, phone: String) {
+    fun loginDataChanged(username: String, password: String, email: String, phone: String,firstname: String,lastname: String) {
         when {
             !isUserNameValid(username) -> {
                 _loginForm.value = LoginFormState(
@@ -55,6 +54,16 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                     emailError = R.string.invalid_email
                 )
             }
+            !isLastNameValid(lastname) -> {
+                _loginForm.value = LoginFormState(
+                    lastnameError = R.string.invalid_lastname
+                )
+            }
+            !isFirstNameValid(firstname) -> {
+                _loginForm.value = LoginFormState(
+                    firstnameError = R.string.invalid_firstname
+                )
+            }
 
             !isPhoneValid(phone) ->{
                 _loginForm.value=LoginFormState(phoneError=R.string.invalid_phone_number)
@@ -67,6 +76,14 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
             }
         }
         Log.i(INFO_TAG, "LOGIN DATA CHANGED VIEW MODEL FUN FINISHED")
+    }
+
+    private fun isLastNameValid(lastname: String): Boolean {
+        return lastname!=""
+    }
+
+    private fun isFirstNameValid(firstname: String): Boolean {
+        return firstname!=""
     }
 
     private fun isPhoneValid(phone: String): Boolean {

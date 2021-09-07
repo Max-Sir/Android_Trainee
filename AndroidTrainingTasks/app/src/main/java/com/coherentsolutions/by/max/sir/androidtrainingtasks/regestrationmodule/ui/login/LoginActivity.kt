@@ -13,7 +13,6 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.room.PrimaryKey
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.INFO_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.ActivityLoginBinding
@@ -45,6 +44,8 @@ class LoginActivity : AppCompatActivity() {
         val loading = binding.loading
         val email = binding.emailEditLogin
         val phone = binding.phoneEditLogin
+        val firstname = binding.firstnameEditLogin
+        val lastname = binding.lastnameEditLogin
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
@@ -55,17 +56,25 @@ class LoginActivity : AppCompatActivity() {
             // disable login button unless both username / password is valid
             login.isEnabled = loginState.isDataValid
 
-            if (loginState.usernameError != null) {
-                username.error = getString(loginState.usernameError)
-            }
-            if (loginState.passwordError != null) {
-                password.error = getString(loginState.passwordError)
-            }
-            if(loginState.phoneError != null){
-                phone.error=getString(loginState.phoneError)
-            }
-            if(loginState.emailError != null){
-                email.error=getString(loginState.emailError)
+            when {
+                loginState.usernameError != null -> {
+                    username.error = getString(loginState.usernameError)
+                }
+                loginState.firstnameError != null -> {
+                    firstname.error = getString(loginState.firstnameError)
+                }
+                loginState.lastnameError != null -> {
+                    lastname.error = getString(loginState.lastnameError)
+                }
+                loginState.passwordError != null -> {
+                    password.error = getString(loginState.passwordError)
+                }
+                loginState.phoneError != null -> {
+                    phone.error = getString(loginState.phoneError)
+                }
+                loginState.emailError != null -> {
+                    email.error = getString(loginState.emailError)
+                }
             }
         })
 
@@ -116,8 +125,10 @@ class LoginActivity : AppCompatActivity() {
             loginViewModel.loginDataChanged(
                 username.text.toString(),
                 password.text.toString(),
-                email_edit_login.text.toString(),
-                phone_edit_login.text.toString()
+                email.text.toString(),
+                phone.text.toString(),
+                firstname.text.toString(),
+                lastname.text.toString()
             )
         }
 
@@ -125,17 +136,43 @@ class LoginActivity : AppCompatActivity() {
             loginViewModel.loginDataChanged(
                 username.text.toString(),
                 password.text.toString(),
-                email_edit_login.text.toString(),
-                phone_edit_login.text.toString()
+                email.text.toString(),
+                phone.text.toString(),
+                firstname.text.toString(),
+                lastname.text.toString()
             )
         }
+        firstname.afterTextChanged {
+            loginViewModel.loginDataChanged(
+                username.text.toString(),
+                password.text.toString(),
+                email.text.toString(),
+                phone.text.toString(),
+                firstname.text.toString(),
+                lastname.text.toString()
+            )
+        }
+
+        lastname.afterTextChanged {
+            loginViewModel.loginDataChanged(
+                username.text.toString(),
+                password.text.toString(),
+                email.text.toString(),
+                phone.text.toString(),
+                firstname.text.toString(),
+                lastname.text.toString()
+            )
+        }
+
 
         phone.afterTextChanged {
             loginViewModel.loginDataChanged(
                 username.text.toString(),
                 password.text.toString(),
-                email_edit_login.text.toString(),
-                phone_edit_login.text.toString()
+                email.text.toString(),
+                phone.text.toString(),
+                firstname.text.toString(),
+                lastname.text.toString()
             )
         }
 
@@ -144,8 +181,10 @@ class LoginActivity : AppCompatActivity() {
                 loginViewModel.loginDataChanged(
                     username.text.toString(),
                     password.text.toString(),
-                    email_edit_login.text.toString(),
-                    phone_edit_login.text.toString()
+                    email.text.toString(),
+                    phone.text.toString(),
+                    firstname.text.toString(),
+                    lastname.text.toString()
                 )
             }
 
@@ -157,7 +196,9 @@ class LoginActivity : AppCompatActivity() {
                             username.text.toString(),
                             password.text.toString(),
                             email.text.toString(),
-                            phone.text.toString()
+                            phone.text.toString(),
+                            firstname.text.toString(),
+                            lastname.text.toString()
                         )
                 }
                 false
@@ -169,7 +210,9 @@ class LoginActivity : AppCompatActivity() {
                     username.text.toString(),
                     password.text.toString(),
                     email.text.toString(),
-                    phone.text.toString()
+                    phone.text.toString(),
+                    firstname.text.toString(),
+                    lastname.text.toString()
                 )
             }
         }

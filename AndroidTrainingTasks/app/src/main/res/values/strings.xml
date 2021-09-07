@@ -19,4 +19,6 @@
     <string name="your_phone_welcome">phone:</string>
     <string name="invalid_email">check if your email is correct</string>
     <string name="invalid_phone_number">the number you did write is incorrect</string>
+    <string name="invalid_firstname">The name field can not be empty</string>
+    <string name="invalid_lastname">the lastname can\'t be empty</string>
 </resources>
