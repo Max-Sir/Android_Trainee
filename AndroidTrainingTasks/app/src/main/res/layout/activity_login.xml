@@ -85,7 +85,7 @@
                 android:id="@+id/phone_edit_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:fontFamily="sans-serif-black"
                 android:hint="@string/your_phone_welcome"
                 android:inputType="phone"
                 android:selectAllOnFocus="true"
@@ -113,6 +113,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/your_email_welcome"
+                android:fontFamily="sans-serif-black"
                 android:inputType="textEmailAddress"
                 tools:ignore="Autofill,LabelFor"
                 tools:text="syromolotov.maks@gmail.com" />
@@ -136,6 +137,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/your_surname_welcome"
+                android:fontFamily="sans-serif-black"
                 android:inputType="textPersonName"
                 tools:ignore="Autofill,LabelFor"
                 tools:text="Syromolotov" />
@@ -159,6 +161,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/your_name_welcome"
+                android:fontFamily="sans-serif-black"
                 android:inputType="textPersonName"
                 tools:ignore="Autofill,LabelFor"
                 tools:text="Max" />

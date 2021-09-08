@@ -46,7 +46,9 @@ class UserFragment : Fragment() {
         val viewModel = ViewModelProvider(this, viewModelFactory).get(UserViewModel::class.java)
         Log.i(INFO_TAG,"user view model builded by factory")
         Log.i(SERVER_TAG,"UPDATING USER")
-        viewModel.updateUserAfterSignIn()
+
+//        TODO("uncomment when be ready all needed part")  viewModel.updateUserAfterSignIn()
+
         Log.v(SERVER_TAG,"USER UPDATED SUCCESSFULLY")
         val binding: UserFragmentBinding =
             DataBindingUtil.inflate(inflater, R.layout.user_fragment, container, false)

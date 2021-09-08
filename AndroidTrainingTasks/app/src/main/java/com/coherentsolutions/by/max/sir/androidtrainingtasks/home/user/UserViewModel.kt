@@ -5,9 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.SERVER_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.RetrofitService
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login.service.service
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class UserViewModel(user: User) : ViewModel() {
 
@@ -16,15 +20,24 @@ class UserViewModel(user: User) : ViewModel() {
         get() = _user
 
     init {
-        Log.i(MyApplication.INFO_TAG,"INIT USER VIEW MODEL CALLED")
+        Log.i(MyApplication.INFO_TAG, "INIT USER VIEW MODEL CALLED")
         _user.value = user
     }
 
-    fun updateUserAfterSignIn(){
-        val sercvice= service<RetrofitService>()
-        sercvice.getUser(user.value!!.username )
-    }
+    fun updateUserAfterSignIn() {
+        val service = service<RetrofitService>()
+        val response = service.getUser(user.value!!.username)
+        response.enqueue(object: Callback<User>{
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                Log.d(SERVER_TAG,"@GET method RESPONSE Successful")
+                _user.value=response.body()
+            }
 
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.d(SERVER_TAG,"@GET method RESPONSE Failure")
+            }
+        })
+    }
 
 
 }
