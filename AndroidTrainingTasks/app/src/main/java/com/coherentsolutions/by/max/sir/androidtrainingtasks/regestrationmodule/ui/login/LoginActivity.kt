@@ -17,9 +17,7 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Compa
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.ActivityLoginBinding
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.HomeActivity
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.UserPersistance
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login.service.persistence
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlin.random.Random
 

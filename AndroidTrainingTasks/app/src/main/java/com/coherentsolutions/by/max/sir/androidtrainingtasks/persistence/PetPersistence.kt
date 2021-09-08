@@ -1,4 +1,4 @@
-package com.coherentsolutions.by.max.sir.androidtrainingtasks.home
+package com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence
 
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.Pet
 

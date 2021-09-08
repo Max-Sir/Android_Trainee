@@ -1,19 +1,17 @@
 package com.coherentsolutions.by.max.sir.androidtrainingtasks.network
 
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
-import com.google.gson.Gson
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface RetrofitService {
     @POST(value = "user")
-    fun createUser(@Body user: User):Call<ServerResponse>
+    fun createUser(@Body user: User): Call<ServerResponse>
 
-    // TODO(@DELETE)
+    @DELETE(value = "user")
+    fun deleteUser(@Path(value = "/{username}") username: String):Call<ServerResponse>
 
-    @GET(value="user")
-    fun getUsers():Call<ServerResponse>
+    @GET(value = "user")
+    fun getUser(@Path(value = "/{username}") username:String): Call<User>
 
 }

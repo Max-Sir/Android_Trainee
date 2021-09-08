@@ -12,7 +12,7 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Compa
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.data.LoginRepository
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.data.Result
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.UserPersistance
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.UserPersistance
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.RetrofitService
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.ServerResponse

@@ -4,10 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.INFO_TAG
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.DefaultPetPersistence
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.PetPersistence
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.SharedPrefUserPersistance
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.UserPersistance
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.DefaultPetPersistence
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.PetPersistence
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.SharedPrefUserPersistance
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.UserPersistance
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.PetstoreService
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.RetrofitService
 import kotlin.reflect.KClass
