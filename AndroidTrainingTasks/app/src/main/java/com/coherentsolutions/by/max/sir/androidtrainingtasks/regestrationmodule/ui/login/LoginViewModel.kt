@@ -6,16 +6,17 @@ import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.API_KEY
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.INFO_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.SERVER_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.uiScope
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.data.LoginRepository
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.data.Result
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.UserPersistance
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.RetrofitService
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.ServerResponse
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.UserPersistance
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login.service.persistence
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login.service.service
 import kotlinx.coroutines.Dispatchers
@@ -108,12 +109,13 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 
     fun postUser(user: User) {
         val retrofitService = service<RetrofitService>()
-        val x = retrofitService.createUser(user)
+        val x = retrofitService.createUser(API_KEY, user)
         x.enqueue(object : Callback<ServerResponse> {
             override fun onResponse(
                 call: Call<ServerResponse>,
                 response: Response<ServerResponse>
             ) {
+                Log.d(SERVER_TAG, "POSTED $user")
                 Log.d(SERVER_TAG, "GOOD REQUEST ${response.body().toString()}")
             }
 

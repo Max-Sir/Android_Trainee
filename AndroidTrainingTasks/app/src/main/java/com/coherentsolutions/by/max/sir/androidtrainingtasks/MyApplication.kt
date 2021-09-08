@@ -13,6 +13,7 @@ class MyApplication : Application() {
         const val INFO_TAG = "logInfo"
         const val SERVER_TAG = "server"
         const val BASE_URL = "https://petstore.swagger.io/v2/"
+        const val API_KEY = "hekko"
         val applicationJob by lazy {
             Job()
         }
