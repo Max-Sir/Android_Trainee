@@ -47,7 +47,7 @@ class UserFragment : Fragment() {
         Log.i(INFO_TAG,"user view model builded by factory")
         Log.i(SERVER_TAG,"UPDATING USER")
 
-//        TODO("uncomment when be ready all needed part")  viewModel.updateUserAfterSignIn()
+        viewModel.updateUserAfterSignIn()
 
         Log.v(SERVER_TAG,"USER UPDATED SUCCESSFULLY")
         val binding: UserFragmentBinding =

@@ -12,23 +12,34 @@ interface RetrofitService {
         "Platform: android")
     @POST(value = "user")
     fun createUser(
-        @Header(value = "/autorization'")
+        @Header(value = "/authorization")
         apiKey:String,
         @Body
         user: User
     ): Call<ServerResponse>
 
-    @DELETE(value = "user")
+
+    @Headers(
+        "Accept: application/json",
+        "Content-Type: application/json",
+        "Platform: android")
+    @DELETE(value = "user/{username}")
     fun deleteUser(
-        //@Header(value = "api_key'${API_KEY}'")
-        @Path(value = "/{username}")
+        @Header(value = "/authorization")
+        apiKey:String,
+        @Path(value = "username")
         username: String
     ): Call<ServerResponse>
 
-    @GET(value = "user")
+    @Headers(
+        "Accept: application/json",
+        "Content-Type: application/json",
+        "Platform: android")
+    @GET(value = "user/{username}")
     fun getUser(
-        //@Header(value = "api_key'${API_KEY}'")
-        @Path(value = "/{username}")
+        @Header(value = "/authorization")
+        apiKey:String,
+        @Path(value = "username")
         username: String
     ): Call<User>
 
