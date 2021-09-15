@@ -10,8 +10,7 @@ import kotlinx.coroutines.Job
 class MyApplication : Application() {
 
     companion object {
-        const val INFO_TAG = "logInfo"
-        const val SERVER_TAG = "server"
+        const val INFO_TAG = "MyApplication"
 
         val applicationJob by lazy {
             Job()

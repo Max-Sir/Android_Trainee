@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.SERVER_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.PetstoreService.API_KEY
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.PetstoreService.SERVER_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.RetrofitService
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.UserPersistance
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login.service.persistence

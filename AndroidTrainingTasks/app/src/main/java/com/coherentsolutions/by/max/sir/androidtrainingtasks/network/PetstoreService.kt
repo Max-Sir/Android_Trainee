@@ -8,6 +8,7 @@ object PetstoreService {
 
     const val API_KEY = "hekko"
 
+    const val SERVER_TAG = "pet-store"
     const val BASE_URL = "https://petstore.swagger.io/v2/"
 
     val retrofit: Retrofit by lazy {
