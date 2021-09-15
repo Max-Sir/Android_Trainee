@@ -1,23 +1,18 @@
 package com.coherentsolutions.by.max.sir.androidtrainingtasks.network
 
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.BASE_URL
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
-object PetstoreService{
+object PetstoreService {
 
-    private val moshi: Moshi by lazy {
-        Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
-    }
+    const val API_KEY = "hekko"
+
+    const val BASE_URL = "https://petstore.swagger.io/v2/"
 
     val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .baseUrl(BASE_URL)
             .build()
