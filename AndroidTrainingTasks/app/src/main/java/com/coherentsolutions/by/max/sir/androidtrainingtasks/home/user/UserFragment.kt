@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.INFO_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.SERVER_TAG
@@ -27,8 +28,7 @@ class UserFragment : Fragment() {
         }
     }
 
-    private lateinit var preferences: SharedPreferences
-    private lateinit var viewModel: UserViewModel
+    private val viewModel:UserViewModel by viewModels()
 
 
     @SuppressLint("UseRequireInsteadOfGet")
@@ -39,12 +39,8 @@ class UserFragment : Fragment() {
 
 
         Log.i(INFO_TAG,"ON CREATE VIEW user fragment")
-        val persistence: UserPersistance = persistence<UserPersistance>()
-        val user=persistence.loadUser()
+
         Log.i(INFO_TAG,"User loaded to fragment")
-        val viewModelFactory = UserViewModelFactory(user)
-        val viewModel = ViewModelProvider(this, viewModelFactory).get(UserViewModel::class.java)
-        Log.i(INFO_TAG,"user view model builded by factory")
         Log.i(SERVER_TAG,"UPDATING USER")
 
         viewModel.updateUserAfterSignIn()
@@ -52,7 +48,7 @@ class UserFragment : Fragment() {
         Log.v(SERVER_TAG,"USER UPDATED SUCCESSFULLY")
         val binding: UserFragmentBinding =
             DataBindingUtil.inflate(inflater, R.layout.user_fragment, container, false)
-        binding.user = viewModel.user.value
+        binding.userViewModel = viewModel
 
         Log.i(INFO_TAG,"binded layoyout and fragment inflated")
 

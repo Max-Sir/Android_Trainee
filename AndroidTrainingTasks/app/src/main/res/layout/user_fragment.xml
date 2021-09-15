@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="user"
-            type="com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User" />
+            name="userViewModel"
+            type="com.coherentsolutions.by.max.sir.androidtrainingtasks.home.user.UserViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +35,7 @@
                 android:layout_height="match_parent"
                 android:enabled="false"
                 android:hint="@string/your_username"
-                android:text="@{user.username}" />
+                android:text="@{userViewModel.user.username}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -61,7 +61,7 @@
                 android:enabled="false"
                 android:hint="@string/your_password"
                 android:inputType="textPassword"
-                android:text="@{user.password}" />
+                android:text="@{userViewModel.user.password}" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
