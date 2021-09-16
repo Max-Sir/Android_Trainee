@@ -22,7 +22,7 @@ import retrofit2.Response
 class UserViewModel() : ViewModel() {
 
     private val petstorePersistence = persistence<PetstorePersistence>()
-    private val persistence= persistence<UserPersistence>()
+   // private val persistence= persistence<UserPersistence>()
 
     val user by lazyOf(MutableLiveData<User>())
 
@@ -75,7 +75,7 @@ class UserViewModel() : ViewModel() {
                 when (response.body()?.code) {
                     200 -> {
                         eventDeleteUser.value = State.DELETE_SUCCEED
-                        delete(username ?: user.value?.username!!)
+//                        delete(username ?: user.value?.username!!)
                     }
                     400, 404 -> {
                         eventDeleteUser.value = State.DELETE_FAILED
@@ -95,11 +95,11 @@ class UserViewModel() : ViewModel() {
 
     }
 
-    fun delete(username: String) {
-        uiScope.launch {
-            persistence.delete(username)
-        }
-    }
+//    fun delete(username: String) {
+//        uiScope.launch {
+//            persistence.delete(username)
+//        }
+//    }
 
 
 }

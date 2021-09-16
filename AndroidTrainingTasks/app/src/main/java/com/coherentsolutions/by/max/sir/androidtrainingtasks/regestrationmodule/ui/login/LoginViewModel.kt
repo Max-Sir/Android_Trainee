@@ -6,6 +6,7 @@ import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.INFO_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.uiScope
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
@@ -34,7 +35,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
 
-    val persistence= persistence<UserPersistence>()
+   // val persistence= persistence<UserPersistence>()
 
     val petstorePersistence=persistence<PetstorePersistence>()
 
@@ -123,7 +124,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
             ) {
                 Log.d(SERVER_TAG, "POSTED $user")
                 Log.d(SERVER_TAG, "GOOD REQUEST ${response.body().toString()}")
-                addUser(user)
+               // addUser(user)
                 saveUserToPersistence(user)
             }
 
@@ -133,11 +134,11 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         })
     }
 
-    fun addUser(user:User){
-        uiScope.launch {
-            persistence.add(user)
-        }
-    }
+//    fun addUser(user:User){
+//        uiScope.launch {
+//            persistence.add(user)
+//        }
+//    }
 
     //may be thick place of the app
     fun saveUserToPersistence(user: User) {
