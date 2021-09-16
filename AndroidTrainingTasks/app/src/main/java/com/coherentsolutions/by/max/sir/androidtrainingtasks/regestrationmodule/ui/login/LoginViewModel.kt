@@ -6,20 +6,17 @@ import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.INFO_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.uiScope
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.data.LoginRepository
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.data.Result
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.database.UserDatabase
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.PetstoreService.API_KEY
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.PetstoreService.SERVER_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.RetrofitService
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.ServerStatusResponse
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.PetstorePersistence
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.UserPersistence
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.service.persistence
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.service.service
 import kotlinx.coroutines.Dispatchers
@@ -35,9 +32,9 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
 
-   // val persistence= persistence<UserPersistence>()
+    // val persistence= persistence<UserPersistence>()
 
-    val petstorePersistence=persistence<PetstorePersistence>()
+    val petstorePersistence = persistence<PetstorePersistence>()
 
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
@@ -124,7 +121,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
             ) {
                 Log.d(SERVER_TAG, "POSTED $user")
                 Log.d(SERVER_TAG, "GOOD REQUEST ${response.body().toString()}")
-               // addUser(user)
+                // addUser(user)
                 saveUserToPersistence(user)
             }
 
@@ -164,7 +161,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 
     private fun isEmailValid(email: String): Boolean {
         Log.i(INFO_TAG, "EMAIL VALIDATION CALL")
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches()||true
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches() || true
     }
 
 
@@ -197,7 +194,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                 && password.any { it !in 'A'..'Z' && it !in 'a'..'z' && it !in '0'..'9' }
                 && password.any { it in 'A'..'Z' }
                 && password.any { it in '0'..'9' }
-                && password.any { it in 'a'..'z' }||true
+                && password.any { it in 'a'..'z' } || true
 
     }
 }
