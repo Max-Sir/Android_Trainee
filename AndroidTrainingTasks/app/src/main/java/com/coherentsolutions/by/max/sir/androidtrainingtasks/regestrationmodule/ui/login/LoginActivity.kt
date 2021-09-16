@@ -96,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
                 email = "${binding.emailEditLogin.text}",
                 phone = "${binding.phoneEditLogin.text}",
                 userStatus = 0,
-                id = Random.nextInt(),
+                id = Random.nextInt(Int.MAX_VALUE),
                 lastName = "${binding.lastnameEditLogin.text}",
                 firstName = "${binding.firstnameEditLogin.text}",
                 username = "${binding.username.text}",

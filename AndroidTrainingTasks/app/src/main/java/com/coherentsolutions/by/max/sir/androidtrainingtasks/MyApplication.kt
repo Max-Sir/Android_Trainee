@@ -10,10 +10,8 @@ import kotlinx.coroutines.Job
 class MyApplication : Application() {
 
     companion object {
-        const val INFO_TAG = "logInfo"
-        const val SERVER_TAG = "server"
-        const val BASE_URL = "https://petstore.swagger.io/v2/"
-        const val API_KEY = "hekko"
+        const val INFO_TAG = "MyApplication"
+
         val applicationJob by lazy {
             Job()
         }
