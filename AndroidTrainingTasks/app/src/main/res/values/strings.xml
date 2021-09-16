@@ -21,4 +21,12 @@
     <string name="invalid_phone_number">the number you did write is incorrect</string>
     <string name="invalid_firstname">The name field can not be empty</string>
     <string name="invalid_lastname">the lastname can\'t be empty</string>
+    <string name="delete_user_text">Delete user</string>
+    <string name="alert_dialog_title_delete_user">Are you really wont to delete your account this action can\'t be undone</string>
+    <string name="user_delete_alert_dialog_title">Delete user ?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="user">\"User \"</string>
+    <string name="was_delete_successfully">\" was delete succeed!!!\"</string>
+    <string name="delete_operation_was_failed_try_again">\" deletion was Failed v(ﾟOﾟ)v . Try again!!!\"</string>
 </resources>

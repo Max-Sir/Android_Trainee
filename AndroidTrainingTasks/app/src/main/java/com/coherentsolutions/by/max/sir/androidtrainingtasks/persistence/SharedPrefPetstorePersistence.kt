@@ -8,7 +8,7 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.HomeActivity.C
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
 import com.google.gson.Gson
 
-class SharedPrefUserPersistance(val context: Context) : UserPersistance {
+class SharedPrefPetstorePersistence(val context: Context) : PetstorePersistence {
 
 
     init{

@@ -92,7 +92,7 @@ class LoginActivity : AppCompatActivity() {
 
             Log.i(INFO_TAG, "LOGIN ACTIVITY - USER SAVE() TO SHARED PREF BY PERSISTENCE")
 
-            val user=User(
+            val user = User(
                 email = "${binding.emailEditLogin.text}",
                 phone = "${binding.phoneEditLogin.text}",
                 userStatus = 0,
@@ -102,7 +102,6 @@ class LoginActivity : AppCompatActivity() {
                 username = "${binding.username.text}",
                 password = "${binding.password.text}"
             )
-            loginViewModel.saveUserToPersistence(user)
             loginViewModel.postUser(user)
             Log.i(
                 INFO_TAG,

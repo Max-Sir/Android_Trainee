@@ -2,7 +2,9 @@ package com.coherentsolutions.by.max.sir.androidtrainingtasks
 
 import android.app.Application
 import android.util.Log
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login.service.ServiceLocator
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.database.UserDao
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.database.UserDatabase
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.service.ServiceLocator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -16,7 +18,7 @@ class MyApplication : Application() {
             Job()
         }
         val uiScope by lazy {
-            CoroutineScope(Dispatchers.Main+applicationJob)
+            CoroutineScope(Dispatchers.Main + applicationJob)
         }
     }
 
@@ -25,5 +27,10 @@ class MyApplication : Application() {
         Log.i(INFO_TAG, "created application")
         super.onCreate()
         ServiceLocator.context = applicationContext
+    }
+
+    override fun onTerminate() {
+        super.onTerminate()
+        applicationJob.cancel()
     }
 }

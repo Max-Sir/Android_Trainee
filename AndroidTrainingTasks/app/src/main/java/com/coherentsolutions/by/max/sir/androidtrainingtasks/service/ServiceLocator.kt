@@ -1,15 +1,12 @@
-package com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login.service
+package com.coherentsolutions.by.max.sir.androidtrainingtasks.service
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.INFO_TAG
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.DefaultPetPersistence
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.PetPersistence
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.SharedPrefUserPersistance
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.UserPersistance
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.PetstoreService
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.RetrofitService
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.*
 import kotlin.reflect.KClass
 
 @SuppressLint("StaticFieldLeak")
@@ -34,7 +31,8 @@ object ServiceLocator {
         return when (service) {
             //TODO("implement DefaultPetPersistence::class next steps, it's an template for the future")
             PetPersistence::class -> DefaultPetPersistence() as T
-            UserPersistance::class -> SharedPrefUserPersistance(context!!) as T
+            PetstorePersistence::class -> SharedPrefPetstorePersistence(context!!) as T
+            UserPersistence::class -> DefaultUserPersistence(context!!) as T
             else -> {
                 Log.i(INFO_TAG, "BAD PERSISTENCE - NOT CREATED")
                 throw Exception("wrong persistence $service")

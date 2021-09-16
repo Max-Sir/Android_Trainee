@@ -2,7 +2,7 @@ package com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence
 
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
 
-interface UserPersistance {
+interface PetstorePersistence {
     fun loadUser(): User
-    fun saveUser(user:User)
+    fun saveUser(user: User)
 }
