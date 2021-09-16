@@ -39,8 +39,8 @@ class UserViewModel : ViewModel() {
 
     init {
         Log.i(MyApplication.INFO_TAG, "INIT USER VIEW MODEL CALLED")
-        val loadedUser = petstorePersistence.loadUser()
-        user.value = loadedUser
+        //val loadedUser = petstorePersistence.loadUser()
+        //user.value = loadedUser
         updateUserAfterSignIn()
         // persistence= persistence<UserPersistence>()
     }
@@ -91,7 +91,7 @@ class UserViewModel : ViewModel() {
                     else -> {
                         Log.i(SERVER_TAG, "${response.body()?.code}")
                         //throw IllegalArgumentException("No such documented code")
-                        eventDeleteUser.value = State.NON_CALLED_DELETE_EVENT
+                        eventDeleteUser.value = State.DELETE_FAILED
                     }
                 }
 

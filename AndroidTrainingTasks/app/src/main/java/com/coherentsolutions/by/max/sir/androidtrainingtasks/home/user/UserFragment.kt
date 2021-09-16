@@ -39,17 +39,21 @@ class UserFragment : Fragment() {
     ): View {
         setHasOptionsMenu(true)
         viewModel.eventDeleteUser.observe(viewLifecycleOwner, { state ->
+            Log.i(SERVER_TAG,"OBSERVE ${state.name}")
             when (state) {
                 DELETE_SUCCEED -> {
+                    Log.i(SERVER_TAG,"OBSERVE SUCCESSFUL")
+
                     Toast.makeText(
                         activity,
                         getString(R.string.user) + username.text + getString(R.string.was_delete_successfully),
                         Toast.LENGTH_SHORT
                     ).show()
-                    startActivity(Intent(context, LoginActivity::class.java))
                     activity?.finish()
+                    startActivity(Intent(context, LoginActivity::class.java))
                 }
                 DELETE_FAILED -> {
+                    Log.i(SERVER_TAG,"OBSERVE FAILED")
                     Toast.makeText(
                         activity,
                         getString(R.string.user) + username.text + getString(R.string.delete_operation_was_failed_try_again),
@@ -58,8 +62,12 @@ class UserFragment : Fragment() {
 
                 }
                 NON_CALLED_DELETE_EVENT -> {
+                    Log.i(SERVER_TAG,"non delete")
+
                 }
                 else -> {
+                    Log.i(SERVER_TAG,"OBSERVE error")
+
                     throw IllegalArgumentException("${UserViewModel.Companion.State::class.simpleName} Enum exception")
                 }
 
