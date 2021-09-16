@@ -12,4 +12,4 @@ data class Pet(
     val photoUrls: List<String>,
     val status: String,
     val tags: List<Tag>
-):Parcelable,Serializable
+) : Parcelable, Serializable

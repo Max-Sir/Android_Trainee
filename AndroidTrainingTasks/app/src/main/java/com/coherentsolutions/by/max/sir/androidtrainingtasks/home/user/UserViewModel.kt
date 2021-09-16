@@ -19,10 +19,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UserViewModel() : ViewModel() {
+class UserViewModel : ViewModel() {
 
     private val petstorePersistence = persistence<PetstorePersistence>()
-   // private val persistence= persistence<UserPersistence>()
+    private lateinit var persistence: UserPersistence
 
     val user by lazyOf(MutableLiveData<User>())
 
@@ -41,6 +41,8 @@ class UserViewModel() : ViewModel() {
         Log.i(MyApplication.INFO_TAG, "INIT USER VIEW MODEL CALLED")
         val loadedUser = petstorePersistence.loadUser()
         user.value = loadedUser
+        updateUserAfterSignIn()
+        // persistence= persistence<UserPersistence>()
     }
 
     fun updateUserAfterSignIn() {
@@ -63,8 +65,13 @@ class UserViewModel() : ViewModel() {
         })
     }
 
+    /**
+     * @delete from retrofit service but swagger has some bugs
+     */
+
     fun deleteUser(username: String? = null) {
         val service = service<RetrofitService>()
+        Log.i(SERVER_TAG, "DELETE USERNAME: ${username ?: user.value?.username!!}")
         val response = service.deleteUser(API_KEY, username ?: user.value?.username!!)
         response.enqueue(object : Callback<ServerStatusResponse> {
             override fun onResponse(
@@ -74,13 +81,18 @@ class UserViewModel() : ViewModel() {
                 Log.i(SERVER_TAG, "DELETE SUCCESSFULLY user ${user.value!!}")
                 when (response.body()?.code) {
                     200 -> {
+                        Log.i(SERVER_TAG, "DELETE 200 OK")
                         eventDeleteUser.value = State.DELETE_SUCCEED
-//                        delete(username ?: user.value?.username!!)
                     }
                     400, 404 -> {
+                        Log.i(SERVER_TAG, "DELETE 40x BAD")
                         eventDeleteUser.value = State.DELETE_FAILED
                     }
-                    else -> throw IllegalArgumentException("No such documented code")
+                    else -> {
+                        Log.i(SERVER_TAG, "${response.body()?.code}")
+                        //throw IllegalArgumentException("No such documented code")
+                        eventDeleteUser.value=State.NON_CALLED_DELETE_EVENT
+                    }
                 }
 
             }
@@ -95,11 +107,15 @@ class UserViewModel() : ViewModel() {
 
     }
 
-//    fun delete(username: String) {
-//        uiScope.launch {
-//            persistence.delete(username)
-//        }
-//    }
+    fun deleteEventEnded() {
+        eventDeleteUser.value = State.NON_CALLED_DELETE_EVENT
+    }
+
+    fun delete(username: String) {
+        uiScope.launch {
+            persistence.delete(username)
+        }
+    }
 
 
 }

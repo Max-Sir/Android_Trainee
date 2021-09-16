@@ -8,4 +8,4 @@ data class ServerStatusResponse(
     val code: Int,
     val message: String,
     val type: String
-):Parcelable
+) : Parcelable

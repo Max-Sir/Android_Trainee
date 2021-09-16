@@ -8,4 +8,4 @@ import java.io.Serializable
 data class Tag(
     val id: Int,
     val name: String
-):Parcelable,Serializable
+) : Parcelable, Serializable

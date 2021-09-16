@@ -19,20 +19,20 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.i(INFO_TAG,"home activity created")
+        Log.i(INFO_TAG, "home activity created")
 
         super.onCreate(savedInstanceState)
         val binding =
             DataBindingUtil.setContentView<ActivityHomeBinding>(this, R.layout.activity_home)
 
-        Log.i(INFO_TAG,"Home act inflated")
+        Log.i(INFO_TAG, "Home act inflated")
         val bottomNavigationItem = binding.bottomNavigation
-        Log.i(INFO_TAG,"BOTTOM NAV ITEM INSTANTIATED")
+        Log.i(INFO_TAG, "BOTTOM NAV ITEM INSTANTIATED")
         val navController = this.findNavController(R.id.myNavHostFragment)
-        Log.i(INFO_TAG,"NAV CONTROLLER GOT")
+        Log.i(INFO_TAG, "NAV CONTROLLER GOT")
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.userFragment, R.id.petsFragment))
         setupActionBarWithNavController(navController, appBarConfiguration)
-        Log.i(INFO_TAG,"NAV BAR CONFIGURED")
+        Log.i(INFO_TAG, "NAV BAR CONFIGURED")
         bottomNavigationItem.setupWithNavController(navController)
 
     }

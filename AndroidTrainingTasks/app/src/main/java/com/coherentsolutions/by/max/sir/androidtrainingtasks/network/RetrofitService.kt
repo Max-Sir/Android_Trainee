@@ -8,11 +8,12 @@ interface RetrofitService {
     @Headers(
         "Accept: application/json",
         "Content-Type: application/json",
-        "Platform: android")
+        "Platform: android"
+    )
     @POST(value = "user")
     fun createUser(
         @Header(value = "/authorization")
-        apiKey:String,
+        apiKey: String,
         @Body
         user: User
     ): Call<ServerStatusResponse>
@@ -21,11 +22,12 @@ interface RetrofitService {
     @Headers(
         "Accept: application/json",
         "Content-Type: application/json",
-        "Platform: android")
+        "Platform: android"
+    )
     @DELETE(value = "user/{username}")
     fun deleteUser(
         @Header(value = "/authorization")
-        apiKey:String,
+        apiKey: String,
         @Path(value = "username")
         username: String
     ): Call<ServerStatusResponse>
@@ -33,11 +35,12 @@ interface RetrofitService {
     @Headers(
         "Accept: application/json",
         "Content-Type: application/json",
-        "Platform: android")
+        "Platform: android"
+    )
     @GET(value = "user/{username}")
     fun getUser(
         @Header(value = "/authorization")
-        apiKey:String,
+        apiKey: String,
         @Path(value = "username")
         username: String
     ): Call<User?>

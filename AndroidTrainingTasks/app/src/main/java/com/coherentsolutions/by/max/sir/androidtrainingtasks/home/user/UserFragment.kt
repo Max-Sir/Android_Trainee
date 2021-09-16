@@ -1,12 +1,11 @@
 package com.coherentsolutions.by.max.sir.androidtrainingtasks.home.user
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -31,34 +30,14 @@ class UserFragment : Fragment() {
 
     private val viewModel: UserViewModel by viewModels()
 
-    private val lifecycleOwner=this
+    private val lifecycleOwner = this
 
     @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-
-        Log.i(INFO_TAG, "ON CREATE VIEW user fragment")
-
-        Log.i(INFO_TAG, "User loaded to fragment")
-        Log.i(SERVER_TAG, "UPDATING USER")
-
-        viewModel.updateUserAfterSignIn()
-
-        Log.v(SERVER_TAG, "USER UPDATED SUCCESSFULLY")
-        val binding: UserFragmentBinding =
-            DataBindingUtil.inflate(inflater, R.layout.user_fragment, container, false)
-        binding.userViewModel = viewModel
-
-        Log.i(INFO_TAG, "binded layoyout and fragment inflated")
-
-
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
         viewModel.eventDeleteUser.observe(viewLifecycleOwner, { state ->
             when (state) {
                 DELETE_SUCCEED -> {
@@ -86,9 +65,45 @@ class UserFragment : Fragment() {
 
             }
         })
-        super.onViewCreated(view, savedInstanceState)
 
+        Log.i(INFO_TAG, "ON CREATE VIEW user fragment")
+
+        Log.i(INFO_TAG, "User loaded to fragment")
+        Log.i(SERVER_TAG, "UPDATING USER")
+
+        Log.v(SERVER_TAG, "USER UPDATED SUCCESSFULLY")
+        val binding: UserFragmentBinding =
+            DataBindingUtil.inflate(inflater, R.layout.user_fragment, container, false)
+        binding.userViewModel = viewModel
+
+        Log.i(INFO_TAG, "binded layoyout and fragment inflated")
+
+
+        return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.findItem(R.id.delete_user_menu_item)
+        inflater.inflate(R.menu.options_user_fragment_menu, menu)
     }
 
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.delete_user_menu_item -> AlertDialog.Builder(activity)
+                .setTitle(getString(R.string.user_delete_alert_dialog_title))
+                .setMessage(getString(R.string.alert_dialog_title_delete_user))
+                .setPositiveButton(getString(R.string.yes)) { dialog, id ->
+                    viewModel.deleteUser()
+                    dialog.cancel()
+                }
+                .setNegativeButton(getString(R.string.no)) { dialog, id ->
+                    dialog.cancel()
+                }
+                .create()
+                .show()
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }

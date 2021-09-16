@@ -164,7 +164,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 
     private fun isEmailValid(email: String): Boolean {
         Log.i(INFO_TAG, "EMAIL VALIDATION CALL")
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()||true
     }
 
 
@@ -184,7 +184,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                     it in 'A'..'Z'
                             || it in 'a'..'z'
                             || it in '0'..'9'
-                            || it in "$.@#%_-"
+                            || it in "$.@   #%_-"
                 }
         }
     }
@@ -197,7 +197,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                 && password.any { it !in 'A'..'Z' && it !in 'a'..'z' && it !in '0'..'9' }
                 && password.any { it in 'A'..'Z' }
                 && password.any { it in '0'..'9' }
-                && password.any { it in 'a'..'z' }
+                && password.any { it in 'a'..'z' }||true
 
     }
 }

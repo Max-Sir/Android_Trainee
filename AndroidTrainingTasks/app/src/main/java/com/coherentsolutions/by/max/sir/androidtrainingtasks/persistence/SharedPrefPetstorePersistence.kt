@@ -11,11 +11,11 @@ import com.google.gson.Gson
 class SharedPrefPetstorePersistence(val context: Context) : PetstorePersistence {
 
 
-    init{
+    init {
         Log.i(MyApplication.INFO_TAG, "User persistence instantiated")
     }
 
-    override fun loadUser():User {
+    override fun loadUser(): User {
         val preferences = context.getSharedPreferences(USER, MODE_PRIVATE)
         val user: User =
             Gson().fromJson(preferences.getString(USER, ""), User::class.java) as User
