@@ -36,8 +36,8 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
-    init {
-        actionProgressBarEvent.value = false
+    init{
+        actionProgressBarEvent.value=false
     }
 
     fun login(
@@ -142,12 +142,12 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         cancelActionProgressBarEvent()
     }
 
-    fun startActionProgressBarEvent() {
-        actionProgressBarEvent.value = true
+    fun startActionProgressBarEvent(){
+        actionProgressBarEvent.value=true
     }
 
-    fun cancelActionProgressBarEvent() {
-        actionProgressBarEvent.value = false
+    fun cancelActionProgressBarEvent(){
+        actionProgressBarEvent.value=false
     }
 
 

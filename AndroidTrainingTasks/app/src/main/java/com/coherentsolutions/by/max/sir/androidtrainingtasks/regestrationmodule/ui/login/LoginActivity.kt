@@ -128,10 +128,11 @@ class LoginActivity : AppCompatActivity() {
         })
 
         loginViewModel.actionProgressBarEvent.observe(this, {
-            if (it == true) {
-                loading.visibility = View.VISIBLE
-            } else {
-                loading.visibility = View.GONE
+            if(it==true){
+                loading.visibility=View.VISIBLE
+            }
+            else{
+                loading.visibility=View.GONE
             }
         })
 
