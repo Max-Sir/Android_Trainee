@@ -111,6 +111,9 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         Log.i(INFO_TAG, "LOGIN DATA CHANGED VIEW MODEL FUN FINISHED")
     }
 
+    /**
+     * @POST usage
+     */
     fun postUser(user: User) {
         val retrofitService = service<RetrofitService>()
         val x = retrofitService.createUser(API_KEY, user)

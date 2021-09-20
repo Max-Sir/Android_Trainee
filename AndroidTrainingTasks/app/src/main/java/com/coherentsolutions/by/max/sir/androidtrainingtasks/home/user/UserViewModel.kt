@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.INFO_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.uiScope
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.PetstoreService.API_KEY
@@ -21,7 +22,7 @@ import retrofit2.Response
 
 class UserViewModel : ViewModel() {
 
-    private val petstorePersistence = persistence<PetstorePersistence>()
+    //private val petstorePersistence = persistence<PetstorePersistence>()
     private lateinit var persistence: UserPersistence
 
     val user by lazyOf(MutableLiveData<User>())
@@ -38,15 +39,15 @@ class UserViewModel : ViewModel() {
 
 
     init {
-        Log.i(MyApplication.INFO_TAG, "INIT USER VIEW MODEL CALLED")
-        //val loadedUser = petstorePersistence.loadUser()
-        //user.value = loadedUser
+        Log.i(INFO_TAG, "INIT USER VIEW MODEL CALLED")
+        user.value=persistence<PetstorePersistence>().loadUser()
         updateUserAfterSignIn()
-        // persistence= persistence<UserPersistence>()
+        Log.i(INFO_TAG,"ending calling")
     }
 
     fun updateUserAfterSignIn() {
         val service = service<RetrofitService>()
+        Log.i(INFO_TAG,"username")
         val response = service.getUser(API_KEY, user.value!!.username)
         response.enqueue(object : Callback<User?> {
             override fun onResponse(call: Call<User?>, response: Response<User?>) {

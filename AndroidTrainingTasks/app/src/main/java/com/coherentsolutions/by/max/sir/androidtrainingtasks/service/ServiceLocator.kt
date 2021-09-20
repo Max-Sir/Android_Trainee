@@ -31,10 +31,9 @@ object ServiceLocator {
         Log.i(INFO_TAG, "GET PERSISTENCE CALL")
 
         return when (service) {
-            //TODO("implement DefaultPetPersistence::class next steps, it's an template for the future")
-            PetPersistence::class -> DefaultPetPersistence() as T
-            PetstorePersistence::class -> SharedPrefPetstorePersistence(context!!) as T
-            UserPersistence::class -> DefaultUserPersistence(database!!) as T
+            PetPersistence::class -> DefaultPetPersistence() as T //for other manipulations (f.ex. Shared Preferences for whole app)
+            PetstorePersistence::class -> SharedPrefPetstorePersistence(context!!) as T // for DB!?!?
+            UserPersistence::class -> DefaultUserPersistence(database!!) as T // for DB
             else -> {
                 Log.i(INFO_TAG, "BAD PERSISTENCE - NOT CREATED")
                 throw Exception("wrong persistence $service")

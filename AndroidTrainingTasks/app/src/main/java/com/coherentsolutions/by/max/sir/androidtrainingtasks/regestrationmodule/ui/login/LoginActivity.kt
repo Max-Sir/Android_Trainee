@@ -18,6 +18,9 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.ActivityLoginBinding
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.HomeActivity
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.PetPersistence
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.PetstorePersistence
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.service.persistence
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlin.random.Random
 
@@ -219,7 +222,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome)
-        // TODO : initiate successful logged in experience
         Toast.makeText(
             applicationContext,
             "$welcome ${binding.username.text ?: model.displayName}",

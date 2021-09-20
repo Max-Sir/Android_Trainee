@@ -16,11 +16,10 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.UserFra
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.user.UserViewModel.Companion.State.*
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.PetstoreService.SERVER_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login.LoginActivity
-import kotlinx.android.synthetic.main.activity_login.*
 
 class UserFragment : Fragment() {
 
-   private val viewModel: UserViewModel by viewModels()
+    private val viewModel: UserViewModel by viewModels()
 
     private val lifecycleOwner = this
 
@@ -31,34 +30,34 @@ class UserFragment : Fragment() {
     ): View {
         setHasOptionsMenu(true)
         viewModel.eventDeleteUser.observe(viewLifecycleOwner, { state ->
-            Log.i(SERVER_TAG,"OBSERVE ${state.name}")
+            Log.i(SERVER_TAG, "OBSERVE ${state.name}")
             when (state) {
                 DELETE_SUCCEED -> {
-                    Log.i(SERVER_TAG,"OBSERVE SUCCESSFUL")
+                    Log.i(SERVER_TAG, "OBSERVE SUCCESSFUL")
 
                     Toast.makeText(
                         activity,
-                        getString(R.string.user) + username.text + getString(R.string.was_delete_successfully),
+                        getString(R.string.user) + getString(R.string.was_delete_successfully),
                         Toast.LENGTH_SHORT
                     ).show()
                     activity?.finish()
                     startActivity(Intent(context, LoginActivity::class.java))
                 }
                 DELETE_FAILED -> {
-                    Log.i(SERVER_TAG,"OBSERVE FAILED")
+                    Log.i(SERVER_TAG, "OBSERVE FAILED")
                     Toast.makeText(
                         activity,
-                        getString(R.string.user) + username.text + getString(R.string.delete_operation_was_failed_try_again),
+                        getString(R.string.user) + getString(R.string.delete_operation_was_failed_try_again),
                         Toast.LENGTH_SHORT
                     ).show()
 
                 }
                 NON_CALLED_DELETE_EVENT -> {
-                    Log.i(SERVER_TAG,"non delete")
+                    Log.i(SERVER_TAG, "non delete")
 
                 }
                 else -> {
-                    Log.i(SERVER_TAG,"OBSERVE error")
+                    Log.i(SERVER_TAG, "OBSERVE error")
 
                     throw IllegalArgumentException("${UserViewModel.Companion.State::class.simpleName} Enum exception")
                 }
