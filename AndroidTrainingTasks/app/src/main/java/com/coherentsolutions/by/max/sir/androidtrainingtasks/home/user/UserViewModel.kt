@@ -3,7 +3,6 @@ package com.coherentsolutions.by.max.sir.androidtrainingtasks.home.user
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.INFO_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.uiScope
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
@@ -40,23 +39,22 @@ class UserViewModel : ViewModel() {
 
     init {
         Log.i(INFO_TAG, "INIT USER VIEW MODEL CALLED")
-        user.value=persistence<PetstorePersistence>().loadUser()
+        user.value = persistence<PetstorePersistence>().loadUser()
         updateUserAfterSignIn()
-        Log.i(INFO_TAG,"ending calling")
+        Log.i(INFO_TAG, "load from Shared Preferences")
+
     }
 
     fun updateUserAfterSignIn() {
         val service = service<RetrofitService>()
-        Log.i(INFO_TAG,"username")
+        Log.i(INFO_TAG, "username")
         val response = service.getUser(API_KEY, user.value!!.username)
         response.enqueue(object : Callback<User?> {
             override fun onResponse(call: Call<User?>, response: Response<User?>) {
                 Log.d(SERVER_TAG, "@GET method RESPONSE Successful ${response.body()}")
-                if (response.isSuccessful) {
+                if (response.body() != null) {
                     user.value = response.body()
                     return
-                } else {
-                    updateUserAfterSignIn()
                 }
             }
 

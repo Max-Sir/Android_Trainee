@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.INFO_TAG
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.uiScope
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.data.LoginRepository
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.data.Result
@@ -19,9 +18,6 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.ServerStatu
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.PetstorePersistence
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.service.persistence
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.service.service
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,7 +28,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
 
-    // val persistence= persistence<UserPersistence>()
+    //val persistence= persistence<UserPersistence>()
 
     val petstorePersistence = persistence<PetstorePersistence>()
 
@@ -115,6 +111,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
      * @POST usage
      */
     fun postUser(user: User) {
+        saveUserToPreferences(user)
         val retrofitService = service<RetrofitService>()
         val x = retrofitService.createUser(API_KEY, user)
         x.enqueue(object : Callback<ServerStatusResponse> {
@@ -124,8 +121,6 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
             ) {
                 Log.d(SERVER_TAG, "POSTED $user")
                 Log.d(SERVER_TAG, "GOOD REQUEST ${response.body().toString()}")
-                // addUser(user)
-                saveUserToPersistence(user)
             }
 
             override fun onFailure(call: Call<ServerStatusResponse>, t: Throwable) {
@@ -134,20 +129,17 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         })
     }
 
+    fun saveUserToPreferences(user: User) {
+        persistence<PetstorePersistence>().saveUser(user)
+    }
+
+
 //    fun addUser(user:User){
 //        uiScope.launch {
 //            persistence.add(user)
 //        }
 //    }
 
-    //may be thick place of the app
-    fun saveUserToPersistence(user: User) {
-        uiScope.launch {
-            withContext(Dispatchers.IO) {
-                petstorePersistence.saveUser(user)
-            }
-        }
-    }
 
     private fun isLastNameValid(lastname: String): Boolean {
         return lastname != ""

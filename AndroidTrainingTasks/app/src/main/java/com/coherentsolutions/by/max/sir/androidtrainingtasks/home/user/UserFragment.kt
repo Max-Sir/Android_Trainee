@@ -87,6 +87,10 @@ class UserFragment : Fragment() {
         inflater.inflate(R.menu.options_user_fragment_menu, menu)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel.updateUserAfterSignIn()
+        super.onViewCreated(view, savedInstanceState)
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

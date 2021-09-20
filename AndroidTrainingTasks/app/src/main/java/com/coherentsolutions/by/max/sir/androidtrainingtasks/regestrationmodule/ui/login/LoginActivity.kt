@@ -1,6 +1,9 @@
 package com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -18,9 +21,6 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.ActivityLoginBinding
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.HomeActivity
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.PetPersistence
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.PetstorePersistence
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.service.persistence
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlin.random.Random
 
@@ -107,7 +107,6 @@ class LoginActivity : AppCompatActivity() {
                 password = "${binding.password.text}"
             )
             loginViewModel.postUser(user)
-            persistence<PetstorePersistence>().saveUser(user)
             Log.i(
                 INFO_TAG,
                 "LOGIN ACTIVITY - USER SAVED TO SHARED PREF BY PERSISTENCE SUCCESSFULLY"
@@ -233,6 +232,30 @@ class LoginActivity : AppCompatActivity() {
     private fun showLoginFailed(@StringRes errorString: Int) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
     }
+}
+
+fun isOnline(context: Context): Boolean {
+    val connectivityManager =
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val capabilities =
+        connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+    if (capabilities != null) {
+        when {
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                return true
+            }
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                return true
+            }
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                return true
+            }
+        }
+    }
+    return false
 }
 
 /**
