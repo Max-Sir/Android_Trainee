@@ -21,9 +21,6 @@ import retrofit2.Response
 
 class UserViewModel : ViewModel() {
 
-    //private val petstorePersistence = persistence<PetstorePersistence>()
-    private lateinit var persistence: UserPersistence
-
     val user by lazyOf(MutableLiveData<User>())
 
     val eventDeleteUser by lazyOf(MutableLiveData<State>())
@@ -112,7 +109,7 @@ class UserViewModel : ViewModel() {
 
     fun delete(username: String) {
         uiScope.launch {
-            persistence.delete(username)
+            persistence<UserPersistence>().delete(username)
         }
     }
 
