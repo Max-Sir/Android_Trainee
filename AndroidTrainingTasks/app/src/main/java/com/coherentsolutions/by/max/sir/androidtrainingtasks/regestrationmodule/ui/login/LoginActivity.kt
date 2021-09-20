@@ -107,6 +107,7 @@ class LoginActivity : AppCompatActivity() {
                 password = "${binding.password.text}"
             )
             loginViewModel.postUser(user)
+            persistence<PetstorePersistence>().saveUser(user)
             Log.i(
                 INFO_TAG,
                 "LOGIN ACTIVITY - USER SAVED TO SHARED PREF BY PERSISTENCE SUCCESSFULLY"
