@@ -28,12 +28,17 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
 
+    val actionProgressBarEvent by lazyOf(MutableLiveData<Boolean>())
     //val persistence= persistence<UserPersistence>()
 
     val petstorePersistence = persistence<PetstorePersistence>()
 
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
+
+    init {
+        actionProgressBarEvent.value = false
+    }
 
     fun login(
         username: String,
@@ -112,6 +117,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
      */
     fun postUser(user: User) {
         saveUserToPreferences(user)
+        startActionProgressBarEvent()
         val retrofitService = service<RetrofitService>()
         val x = retrofitService.createUser(API_KEY, user)
         x.enqueue(object : Callback<ServerStatusResponse> {
@@ -127,10 +133,21 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                 Log.d(SERVER_TAG, "BAD REQUEST ${t.message}")
             }
         })
+        cancelActionProgressBarEvent()
     }
 
     fun saveUserToPreferences(user: User) {
+        startActionProgressBarEvent()
         persistence<PetstorePersistence>().saveUser(user)
+        cancelActionProgressBarEvent()
+    }
+
+    fun startActionProgressBarEvent() {
+        actionProgressBarEvent.value = true
+    }
+
+    fun cancelActionProgressBarEvent() {
+        actionProgressBarEvent.value = false
     }
 
 

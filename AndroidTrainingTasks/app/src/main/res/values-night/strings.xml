@@ -29,4 +29,5 @@
     <string name="user">\"User \"</string>
     <string name="was_delete_successfully">\" was delete succeed!!!\"</string>
     <string name="delete_operation_was_failed_try_again">\" deletion was Failed v(ﾟOﾟ)v . Try again!!!\"</string>
+    <string name="check_internet_and_try_again">Check Internet Connection and Try Again</string>
 </resources>
