@@ -106,7 +106,11 @@ class LoginActivity : AppCompatActivity() {
                 username = "${binding.username.text}",
                 password = "${binding.password.text}"
             )
-            loginViewModel.postUser(user)
+            if (isOnline(this))
+                loginViewModel.postUser(user)
+            else {
+                return@Observer
+            }
             Log.i(
                 INFO_TAG,
                 "LOGIN ACTIVITY - USER SAVED TO SHARED PREF BY PERSISTENCE SUCCESSFULLY"
@@ -121,6 +125,15 @@ class LoginActivity : AppCompatActivity() {
             Log.i(INFO_TAG, "LOGIN ACTIVITY - STARTED ACTIVITY ${HomeActivity::class.simpleName}")
             finish()
 
+        })
+
+        loginViewModel.actionProgressBarEvent.observe(this, {
+            if(it==true){
+                loading.visibility=View.VISIBLE
+            }
+            else{
+                loading.visibility=View.GONE
+            }
         })
 
         username.afterTextChanged {
@@ -221,12 +234,16 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome)
-        Toast.makeText(
-            applicationContext,
-            "$welcome ${binding.username.text ?: model.displayName}",
-            Toast.LENGTH_LONG
-        ).show()
+        if (isOnline(this)) {
+            val welcome = getString(R.string.welcome)
+            Toast.makeText(
+                applicationContext,
+                "$welcome ${binding.username.text ?: model.displayName}",
+                Toast.LENGTH_LONG
+            ).show()
+        } else {
+            showLoginFailed(R.string.check_internet_and_try_again)
+        }
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
