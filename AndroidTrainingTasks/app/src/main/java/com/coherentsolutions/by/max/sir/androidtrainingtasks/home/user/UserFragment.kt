@@ -20,15 +20,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class UserFragment : Fragment() {
 
-    companion object {
-        fun newInstance(args: Bundle?): UserFragment {
-            val fragment = UserFragment()
-            fragment.arguments = args
-            return fragment
-        }
-    }
-
-    private val viewModel: UserViewModel by viewModels()
+   private val viewModel: UserViewModel by viewModels()
 
     private val lifecycleOwner = this
 
