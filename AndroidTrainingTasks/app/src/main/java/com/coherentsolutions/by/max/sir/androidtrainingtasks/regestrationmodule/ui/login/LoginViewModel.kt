@@ -10,7 +10,7 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Compa
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.data.LoginRepository
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.data.Result
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.UserResponse
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.PetstoreService.API_KEY
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.PetstoreService.SERVER_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.RetrofitService
@@ -115,17 +115,17 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     /**
      * @POST usage
      */
-    fun postUser(user: User) {
-        saveUserToPreferences(user)
+    fun postUser(userResponse: UserResponse) {
+        saveUserToPreferences(userResponse)
         startActionProgressBarEvent()
         val retrofitService = service<RetrofitService>()
-        val x = retrofitService.createUser(API_KEY, user)
+        val x = retrofitService.createUser(API_KEY, userResponse)
         x.enqueue(object : Callback<ServerStatusResponse> {
             override fun onResponse(
                 call: Call<ServerStatusResponse>,
                 response: Response<ServerStatusResponse>
             ) {
-                Log.d(SERVER_TAG, "POSTED $user")
+                Log.d(SERVER_TAG, "POSTED $userResponse")
                 Log.d(SERVER_TAG, "GOOD REQUEST ${response.body().toString()}")
             }
 
@@ -136,9 +136,9 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         cancelActionProgressBarEvent()
     }
 
-    fun saveUserToPreferences(user: User) {
+    fun saveUserToPreferences(userResponse: UserResponse) {
         startActionProgressBarEvent()
-        persistence<PetstorePersistence>().saveUser(user)
+        persistence<PetstorePersistence>().saveUser(userResponse)
         cancelActionProgressBarEvent()
     }
 

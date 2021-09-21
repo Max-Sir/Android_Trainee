@@ -8,7 +8,7 @@ import java.io.Serializable
 
 @Parcelize
 @Entity(tableName = "users_table")
-data class User(
+data class UserResponse(
     @ColumnInfo(name = "email")
     val email: String,
     @ColumnInfo(name = "first_name")

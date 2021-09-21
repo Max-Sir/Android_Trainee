@@ -1,20 +1,20 @@
 package com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence
 
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.database.UserDao
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.UserResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class DefaultUserPersistence(val database: UserDao) : UserPersistence {
 
 
-    override suspend fun add(user: User) {
+    override suspend fun add(userResponse: UserResponse) {
         withContext(Dispatchers.IO) {
-            database.add(user)
+            database.add(userResponse)
         }
     }
 
-    override suspend fun get(username: String): User {
+    override suspend fun get(username: String): UserResponse {
         return withContext(Dispatchers.IO) {
             database.get(username)
         }

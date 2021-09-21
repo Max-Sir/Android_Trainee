@@ -21,7 +21,7 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Compa
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.ActivityLoginBinding
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.HomeActivity
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.UserResponse
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlin.random.Random
 
@@ -97,7 +97,7 @@ class LoginActivity : AppCompatActivity() {
 
             Log.i(INFO_TAG, "LOGIN ACTIVITY - USER SAVE() TO SHARED PREF BY PERSISTENCE")
 
-            val user = User(
+            val user = UserResponse(
                 email = "${binding.emailEditLogin.text}",
                 phone = "${binding.phoneEditLogin.text}",
                 userStatus = 0,

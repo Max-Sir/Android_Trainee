@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.INFO_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.uiScope
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.UserResponse
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.PetstoreService.API_KEY
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.PetstoreService.SERVER_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.RetrofitService
@@ -21,7 +21,7 @@ import retrofit2.Response
 
 class UserViewModel : ViewModel() {
 
-    val user by lazyOf(MutableLiveData<User>())
+    val user by lazyOf(MutableLiveData<UserResponse>())
 
     val eventDeleteUser by lazyOf(MutableLiveData<State>())
 
@@ -46,8 +46,8 @@ class UserViewModel : ViewModel() {
         val service = service<RetrofitService>()
         Log.i(INFO_TAG, "username")
         val response = service.getUser(API_KEY, user.value!!.username)
-        response.enqueue(object : Callback<User?> {
-            override fun onResponse(call: Call<User?>, response: Response<User?>) {
+        response.enqueue(object : Callback<UserResponse?> {
+            override fun onResponse(call: Call<UserResponse?>, response: Response<UserResponse?>) {
                 Log.d(SERVER_TAG, "@GET method RESPONSE Successful ${response.body()}")
                 if (response.body() != null) {
                     user.value = response.body()
@@ -55,7 +55,7 @@ class UserViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<User?>, t: Throwable) {
+            override fun onFailure(call: Call<UserResponse?>, t: Throwable) {
                 Log.d(SERVER_TAG, "@GET method RESPONSE Failure\n${t.message}")
             }
         })

@@ -1,6 +1,6 @@
 package com.coherentsolutions.by.max.sir.androidtrainingtasks.network
 
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.UserResponse
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -15,7 +15,7 @@ interface RetrofitService {
         @Header(value = "/authorization")
         apiKey: String,
         @Body
-        user: User
+        userResponse: UserResponse
     ): Call<ServerStatusResponse>
 
 
@@ -43,6 +43,6 @@ interface RetrofitService {
         apiKey: String,
         @Path(value = "username")
         username: String
-    ): Call<User?>
+    ): Call<UserResponse?>
 
 }

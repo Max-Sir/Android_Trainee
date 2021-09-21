@@ -5,7 +5,7 @@ import android.content.Context.MODE_PRIVATE
 import android.util.Log
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.HomeActivity.Companion.USER
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.UserResponse
 import com.google.gson.Gson
 
 class SharedPrefPetstorePersistence(val context: Context) : PetstorePersistence {
@@ -15,20 +15,20 @@ class SharedPrefPetstorePersistence(val context: Context) : PetstorePersistence 
         Log.i(MyApplication.INFO_TAG, "User persistence instantiated")
     }
 
-    override fun loadUser(): User {
+    override fun loadUser(): UserResponse {
         val preferences = context.getSharedPreferences(USER, MODE_PRIVATE)
-        val user: User =
-            Gson().fromJson(preferences.getString(USER, ""), User::class.java) as User
+        val userResponse: UserResponse =
+            Gson().fromJson(preferences.getString(USER, ""), UserResponse::class.java) as UserResponse
         Log.i(MyApplication.INFO_TAG, "User loaded")
 
-        return user
+        return userResponse
     }
 
 
-    override fun saveUser(user: User) {
+    override fun saveUser(userResponse: UserResponse) {
         val preferences = context.getSharedPreferences(USER, MODE_PRIVATE)
         val edit = preferences.edit()
-        val gson = Gson().toJson(user)
+        val gson = Gson().toJson(userResponse)
         edit.putString(USER, gson).apply()
         Log.i(MyApplication.INFO_TAG, "User saved in persistence")
     }
