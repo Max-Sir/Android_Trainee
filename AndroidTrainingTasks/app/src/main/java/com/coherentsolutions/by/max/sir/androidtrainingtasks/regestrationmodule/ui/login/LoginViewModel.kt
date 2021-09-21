@@ -7,17 +7,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.INFO_TAG
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.uiScope
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.data.LoginRepository
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.data.Result
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.UserResponse
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.PetstoreService.API_KEY
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.PetstoreService.SERVER_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.RetrofitService
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.ServerStatusResponse
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.PetstorePersistence
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.UserPersistence
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.service.ServiceLocator.DATABASE_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.service.persistence
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.service.service
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,15 +34,15 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     val loginFormState: LiveData<LoginFormState> = _loginForm
 
     val actionProgressBarEvent by lazyOf(MutableLiveData<Boolean>())
-    //val persistence= persistence<UserPersistence>()
+    val persistence = persistence<UserPersistence>()
 
-    val petstorePersistence = persistence<PetstorePersistence>()
+    //val petstorePersistence = persistence<PetstorePersistence>()
 
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
-    init{
-        actionProgressBarEvent.value=false
+    init {
+        actionProgressBarEvent.value = false
     }
 
     fun login(
@@ -117,6 +122,18 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
      */
     fun postUser(userResponse: UserResponse) {
         saveUserToPreferences(userResponse)
+        addUser(
+            User(
+                userResponse.email,
+                userResponse.firstName,
+                userResponse.id,
+                userResponse.lastName,
+                userResponse.password,
+                userResponse.phone,
+                userResponse.userStatus,
+                userResponse.username
+            )
+        )
         startActionProgressBarEvent()
         val retrofitService = service<RetrofitService>()
         val x = retrofitService.createUser(API_KEY, userResponse)
@@ -142,20 +159,21 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         cancelActionProgressBarEvent()
     }
 
-    fun startActionProgressBarEvent(){
-        actionProgressBarEvent.value=true
+    fun startActionProgressBarEvent() {
+        actionProgressBarEvent.value = true
     }
 
-    fun cancelActionProgressBarEvent(){
-        actionProgressBarEvent.value=false
+    fun cancelActionProgressBarEvent() {
+        actionProgressBarEvent.value = false
     }
 
 
-//    fun addUser(user:User){
-//        uiScope.launch {
-//            persistence.add(user)
-//        }
-//    }
+    fun addUser(user: User) {
+        uiScope.launch {
+            persistence.add(user)
+            Log.i(DATABASE_TAG, "DATABASE ADD USER: $user")
+        }
+    }
 
 
     private fun isLastNameValid(lastname: String): Boolean {

@@ -5,8 +5,9 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class DefaultUserPersistence(val database: UserDao) : UserPersistence {
+class DefaultUserPersistence(dataSource: UserDao) : UserPersistence {
 
+    val database = dataSource
 
     override suspend fun add(userResponse: User) {
         withContext(Dispatchers.IO) {

@@ -12,6 +12,7 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.RetrofitSer
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.ServerStatusResponse
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.PetstorePersistence
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.UserPersistence
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.service.ServiceLocator.DATABASE_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.service.persistence
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.service.service
 import kotlinx.coroutines.launch
@@ -22,6 +23,8 @@ import retrofit2.Response
 class UserViewModel : ViewModel() {
 
     val user by lazyOf(MutableLiveData<UserResponse>())
+
+    val persistence = persistence<UserPersistence>()
 
     val eventDeleteUser by lazyOf(MutableLiveData<State>())
 
@@ -45,6 +48,7 @@ class UserViewModel : ViewModel() {
     fun updateUserAfterSignIn() {
         val service = service<RetrofitService>()
         Log.i(INFO_TAG, "username")
+        get(user.value!!.username)
         val response = service.getUser(API_KEY, user.value!!.username)
         response.enqueue(object : Callback<UserResponse?> {
             override fun onResponse(call: Call<UserResponse?>, response: Response<UserResponse?>) {
@@ -67,8 +71,10 @@ class UserViewModel : ViewModel() {
 
     fun deleteUser(username: String? = null) {
         val service = service<RetrofitService>()
-        Log.i(SERVER_TAG, "DELETE USERNAME: ${username ?: user.value?.username!!}")
-        val response = service.deleteUser(API_KEY, username ?: user.value?.username!!)
+        val usernameKey = username ?: user.value?.username!!
+        Log.i(SERVER_TAG, "DELETE USERNAME: $username")
+        delete(usernameKey)
+        val response = service.deleteUser(API_KEY, usernameKey)
         response.enqueue(object : Callback<ServerStatusResponse> {
             override fun onResponse(
                 call: Call<ServerStatusResponse>,
@@ -107,9 +113,18 @@ class UserViewModel : ViewModel() {
         eventDeleteUser.value = State.NON_CALLED_DELETE_EVENT
     }
 
+    fun get(username: String) {
+        uiScope.launch {
+            val user = persistence.get(username) ?: return@launch
+            Log.i(DATABASE_TAG, "DATABASE GET value: $user")
+            //TODO("Not yet needed")
+        }
+    }
+
     fun delete(username: String) {
         uiScope.launch {
-            persistence<UserPersistence>().delete(username)
+            persistence.delete(username)
+            Log.i(DATABASE_TAG, "DATABASE DELETE value : $username")
         }
     }
 

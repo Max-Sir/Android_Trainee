@@ -10,8 +10,6 @@ import java.io.Serializable
 @Parcelize
 @Entity(tableName = "users_table")
 data class User(
-    @PrimaryKey(autoGenerate = true)
-    val userId: Long=0L,
     @ColumnInfo(name = "email")
     val email: String,
     @ColumnInfo(name = "first_name")
@@ -27,5 +25,7 @@ data class User(
     @ColumnInfo(name = "user_status")
     val userStatus: Int,
     @ColumnInfo(name = "username")
-    val username: String
+    val username: String,
+    @PrimaryKey(autoGenerate = true)
+    val userId: Long = 0L
 ) : Serializable, Parcelable

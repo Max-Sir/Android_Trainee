@@ -14,6 +14,8 @@ import kotlin.reflect.KClass
 @Suppress("UNCHECKED_CAST")
 object ServiceLocator {
 
+    const val DATABASE_TAG = "database.Database"
+
     var context: Context? = null
 
     var database: UserDao? = null
