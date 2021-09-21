@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.UserResponse
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.User
 
-@Database(entities = [UserResponse::class], version = 1, exportSchema = false)
+@Database(entities = [User::class], version = 1, exportSchema = false)
 abstract class UserDatabase : RoomDatabase() {
     abstract val userDao: UserDao
 
