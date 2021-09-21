@@ -13,6 +13,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -128,11 +129,10 @@ class LoginActivity : AppCompatActivity() {
         })
 
         loginViewModel.actionProgressBarEvent.observe(this, {
-            if(it==true){
-                loading.visibility=View.VISIBLE
-            }
-            else{
-                loading.visibility=View.GONE
+            if (it == true) {
+                loading.visibility = View.VISIBLE
+            } else {
+                loading.visibility = View.GONE
             }
         })
 
@@ -248,6 +248,19 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showLoginFailed(@StringRes errorString: Int) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onBackPressed() {
+        AlertDialog.Builder(this)
+            .setTitle("Exit")
+            .setMessage("Are you sure you wanna Exit?")
+            .setPositiveButton(getText(R.string.yes)) { dialog, _ ->
+                finish()
+                dialog.cancel()
+            }
+            .setNegativeButton(getText(R.string.no)) { dialog, _ ->
+                dialog.cancel()
+            }.create().show()
     }
 }
 

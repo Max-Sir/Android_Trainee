@@ -1,7 +1,9 @@
 package com.coherentsolutions.by.max.sir.androidtrainingtasks.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
@@ -11,6 +13,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Companion.INFO_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.ActivityHomeBinding
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login.LoginActivity
 
 class HomeActivity : AppCompatActivity() {
 
@@ -36,4 +39,21 @@ class HomeActivity : AppCompatActivity() {
         bottomNavigationItem.setupWithNavController(navController)
 
     }
+
+    override fun onBackPressed() {
+        AlertDialog.Builder(this)
+            .setTitle("Logout?")
+            .setMessage("Are you sure you wanna logout?")
+            .setPositiveButton(getText(R.string.yes)) { dialog, _ ->
+                startActivity(Intent(this, LoginActivity::class.java))
+                dialog.cancel()
+            }
+            .setNegativeButton(getText(R.string.no)) { dialog, _ ->
+                dialog.cancel()
+            }
+            .create()
+            .show()
+    }
+
+
 }
