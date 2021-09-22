@@ -111,7 +111,15 @@ class LoginActivity : AppCompatActivity() {
                 password = "${binding.password.text}"
             )
             if (isOnline(this))
-                loginViewModel.postUser(user)
+                loginViewModel.postUser(user) { isSuccess ->
+                    val intent =
+                        Intent(this, HomeActivity::class.java)
+                    Log.i(INFO_TAG, "LOGIN ACTIVITY - INTENT SUCCESSFULLY INSTATED")
+
+                    startActivity(intent)
+                    Log.i(INFO_TAG, "LOGIN ACTIVITY - STARTED ACTIVITY ${HomeActivity::class.simpleName}")
+                    finish()
+                }
             else {
                 return@Observer
             }
@@ -119,15 +127,6 @@ class LoginActivity : AppCompatActivity() {
                 INFO_TAG,
                 "LOGIN ACTIVITY - USER SAVED TO SHARED PREF BY PERSISTENCE SUCCESSFULLY"
             )
-
-
-            val intent =
-                Intent(this, HomeActivity::class.java)
-            Log.i(INFO_TAG, "LOGIN ACTIVITY - INTENT SUCCESSFULLY INSTATED")
-
-            startActivity(intent)
-            Log.i(INFO_TAG, "LOGIN ACTIVITY - STARTED ACTIVITY ${HomeActivity::class.simpleName}")
-            finish()
 
         })
 

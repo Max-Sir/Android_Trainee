@@ -194,6 +194,7 @@
             android:layout_width="88dp"
             android:layout_height="94dp"
             android:layout_marginTop="20dp"
+            android:visibility="visible"
             app:cpb_background_progressbar_color="#b6bbd8"
             app:cpb_background_progressbar_width="5dp"
             app:cpb_progress_direction="to_right"

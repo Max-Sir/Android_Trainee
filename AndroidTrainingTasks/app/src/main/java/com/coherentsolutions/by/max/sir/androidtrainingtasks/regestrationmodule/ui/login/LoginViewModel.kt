@@ -22,7 +22,9 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.UserPer
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.service.ServiceLocator.DATABASE_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.service.persistence
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.service.service
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -122,9 +124,9 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     /**
      * @POST usage
      */
-    fun postUser(userResponse: UserResponse) {
-        saveUserToPreferences(userResponse)
+    fun postUser(userResponse: UserResponse, resultCallback: (Boolean) -> Unit) {
         startLoadingEvent()
+        saveUserToPreferences(userResponse)
         addUser(
             User(
                 userResponse.email,
@@ -138,27 +140,30 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
             )
         )
         val retrofitService = service<RetrofitService>()
-        val x = retrofitService.createUser(API_KEY, userResponse)
-        x.enqueue(object : Callback<ServerStatusResponse> {
+        val createUserRequest = retrofitService.createUser(API_KEY, userResponse)
+
+        createUserRequest.enqueue(object : Callback<ServerStatusResponse> {
             override fun onResponse(
                 call: Call<ServerStatusResponse>,
                 response: Response<ServerStatusResponse>
             ) {
+                endLoadingEvent()
+                resultCallback(true)
                 Log.d(SERVER_TAG, "POSTED $userResponse")
                 Log.d(SERVER_TAG, "GOOD REQUEST ${response.body().toString()}")
             }
 
             override fun onFailure(call: Call<ServerStatusResponse>, t: Throwable) {
+                endLoadingEvent()
+                resultCallback(false)
                 Log.d(SERVER_TAG, "BAD REQUEST ${t.message}")
             }
         })
-        endLoadingEvent()
+
     }
 
     fun saveUserToPreferences(userResponse: UserResponse) {
-        startLoadingEvent()
         persistence<PetstorePersistence>().saveUser(userResponse)
-        endLoadingEvent()
     }
 
     fun startLoadingEvent() {
@@ -170,12 +175,10 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     }
 
     fun addUser(user: User) {
-        startLoadingEvent()
         uiScope.launch {
             persistence.add(user)
             Log.i(DATABASE_TAG, "DATABASE ADD USER: $user")
         }
-        endLoadingEvent()
     }
 
 
