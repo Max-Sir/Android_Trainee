@@ -22,9 +22,7 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.UserPer
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.service.ServiceLocator.DATABASE_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.service.persistence
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.service.service
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

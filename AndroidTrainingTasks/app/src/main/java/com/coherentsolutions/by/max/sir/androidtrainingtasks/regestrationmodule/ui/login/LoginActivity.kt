@@ -117,7 +117,10 @@ class LoginActivity : AppCompatActivity() {
                     Log.i(INFO_TAG, "LOGIN ACTIVITY - INTENT SUCCESSFULLY INSTATED")
 
                     startActivity(intent)
-                    Log.i(INFO_TAG, "LOGIN ACTIVITY - STARTED ACTIVITY ${HomeActivity::class.simpleName}")
+                    Log.i(
+                        INFO_TAG,
+                        "LOGIN ACTIVITY - STARTED ACTIVITY ${HomeActivity::class.simpleName}"
+                    )
                     finish()
                 }
             else {

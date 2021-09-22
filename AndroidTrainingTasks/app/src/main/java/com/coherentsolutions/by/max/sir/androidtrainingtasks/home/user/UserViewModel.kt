@@ -66,7 +66,8 @@ class UserViewModel : ViewModel() {
         response.enqueue(object : Callback<UserResponse?> {
             override fun onResponse(call: Call<UserResponse?>, response: Response<UserResponse?>) {
                 Log.d(SERVER_TAG, "@GET method RESPONSE Successful ${response.body()}")
-                uiScope.launch { delay(400)
+                uiScope.launch {
+                    delay(400)
                     endLoadingEvent()
                 }
                 if (response.body() != null) {
