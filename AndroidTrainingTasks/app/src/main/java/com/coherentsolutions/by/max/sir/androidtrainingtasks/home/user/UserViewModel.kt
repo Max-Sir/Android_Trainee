@@ -15,11 +15,11 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.persistence.UserPer
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.service.ServiceLocator.DATABASE_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.service.persistence
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.service.service
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.concurrent.Executors
 
 class UserViewModel : ViewModel() {
 
@@ -66,6 +66,9 @@ class UserViewModel : ViewModel() {
         response.enqueue(object : Callback<UserResponse?> {
             override fun onResponse(call: Call<UserResponse?>, response: Response<UserResponse?>) {
                 Log.d(SERVER_TAG, "@GET method RESPONSE Successful ${response.body()}")
+                uiScope.launch { delay(400)
+                    endLoadingEvent()
+                }
                 if (response.body() != null) {
                     user.value = response.body()
                     return
@@ -74,9 +77,9 @@ class UserViewModel : ViewModel() {
 
             override fun onFailure(call: Call<UserResponse?>, t: Throwable) {
                 Log.d(SERVER_TAG, "@GET method RESPONSE Failure\n${t.message}")
+                endLoadingEvent()
             }
         })
-        //endLoadingEvent()
     }
 
     /**
@@ -100,15 +103,18 @@ class UserViewModel : ViewModel() {
                     200 -> {
                         Log.i(SERVER_TAG, "DELETE 200 OK")
                         eventDeleteUser.value = State.DELETE_SUCCEED
+                        endLoadingEvent()
                     }
                     400, 404 -> {
                         Log.i(SERVER_TAG, "DELETE 40x BAD")
                         eventDeleteUser.value = State.DELETE_FAILED
+                        endLoadingEvent()
                     }
                     else -> {
                         Log.i(SERVER_TAG, "${response.body()?.code}")
                         //throw IllegalArgumentException("No such documented code")
                         eventDeleteUser.value = State.DELETE_FAILED
+                        endLoadingEvent()
                     }
                 }
 
@@ -117,10 +123,9 @@ class UserViewModel : ViewModel() {
             override fun onFailure(call: Call<ServerStatusResponse>, t: Throwable) {
                 Log.i(SERVER_TAG, "DELETE FAILED user ${t.message}")
                 eventDeleteUser.value = State.DELETE_FAILED
-
+                endLoadingEvent()
             }
         })
-        endLoadingEvent()
 
     }
 
@@ -129,22 +134,18 @@ class UserViewModel : ViewModel() {
     }
 
     fun get(username: String) {
-        startLoadingEvent()
         uiScope.launch {
             val user = persistence.get(username) ?: return@launch
             Log.i(DATABASE_TAG, "DATABASE GET value: $user")
             //TODO("Not yet needed")
         }
-        endLoadingEvent()
     }
 
     fun delete(username: String) {
-        startLoadingEvent()
         uiScope.launch {
             persistence.delete(username)
             Log.i(DATABASE_TAG, "DATABASE DELETE value : $username")
         }
-        endLoadingEvent()
     }
 
 
