@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
@@ -23,6 +22,7 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.database.UserDataba
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.ActivityLoginBinding
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.HomeActivity
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.entities.UserResponse
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.utils.ActivityProgressBar
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.service.ServiceLocator
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlin.random.Random
@@ -48,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
         val username = binding.username
         val password = binding.password
         val login = binding.login
-        val loading = binding.loading
+        val loading = ActivityProgressBar(binding.loading)
         val email = binding.emailEditLogin
         val phone = binding.phoneEditLogin
         val firstname = binding.firstnameEditLogin
@@ -88,7 +88,6 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel.loginResult.observe(this@LoginActivity, Observer {
             val loginResult = it ?: return@Observer
 
-            loading.visibility = View.GONE
             if (loginResult.error != null) {
                 showLoginFailed(loginResult.error)
             }
@@ -132,11 +131,11 @@ class LoginActivity : AppCompatActivity() {
 
         })
 
-        loginViewModel.actionProgressBarEvent.observe(this, {
-            if (it == true) {
-                loading.visibility = View.VISIBLE
+        loginViewModel.loadingEvent.observe(this, { loadingActive ->
+            if (loadingActive) {
+                loading.show()
             } else {
-                loading.visibility = View.GONE
+                loading.hide()
             }
         })
 
@@ -224,7 +223,6 @@ class LoginActivity : AppCompatActivity() {
             }
 
             login.setOnClickListener {
-                loading.visibility = View.VISIBLE
                 loginViewModel.login(
                     username.text.toString(),
                     password.text.toString(),
@@ -255,14 +253,17 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        loginViewModel.startLoadingEvent()
         AlertDialog.Builder(this)
             .setTitle("Exit")
             .setMessage("Are you sure you wanna Exit?")
             .setPositiveButton(getText(R.string.yes)) { dialog, _ ->
                 finish()
+                loginViewModel.endLoadingEvent()
                 dialog.cancel()
             }
             .setNegativeButton(getText(R.string.no)) { dialog, _ ->
+                loginViewModel.endLoadingEvent()
                 dialog.cancel()
             }.create().show()
     }

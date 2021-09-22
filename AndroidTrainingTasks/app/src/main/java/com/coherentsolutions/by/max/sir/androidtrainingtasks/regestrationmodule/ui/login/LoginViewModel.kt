@@ -33,8 +33,10 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
 
-    val actionProgressBarEvent by lazyOf(MutableLiveData<Boolean>())
     val persistence = persistence<UserPersistence>()
+
+    val loadingEvent by lazyOf(MutableLiveData<Boolean>())
+
 
     //val petstorePersistence = persistence<PetstorePersistence>()
 
@@ -42,7 +44,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     val loginResult: LiveData<LoginResult> = _loginResult
 
     init {
-        actionProgressBarEvent.value = false
+        loadingEvent.value = false
     }
 
     fun login(
@@ -122,6 +124,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
      */
     fun postUser(userResponse: UserResponse) {
         saveUserToPreferences(userResponse)
+        startLoadingEvent()
         addUser(
             User(
                 userResponse.email,
@@ -134,7 +137,6 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                 userResponse.username
             )
         )
-        startActionProgressBarEvent()
         val retrofitService = service<RetrofitService>()
         val x = retrofitService.createUser(API_KEY, userResponse)
         x.enqueue(object : Callback<ServerStatusResponse> {
@@ -150,29 +152,30 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                 Log.d(SERVER_TAG, "BAD REQUEST ${t.message}")
             }
         })
-        cancelActionProgressBarEvent()
+        endLoadingEvent()
     }
 
     fun saveUserToPreferences(userResponse: UserResponse) {
-        startActionProgressBarEvent()
+        startLoadingEvent()
         persistence<PetstorePersistence>().saveUser(userResponse)
-        cancelActionProgressBarEvent()
+        endLoadingEvent()
     }
 
-    fun startActionProgressBarEvent() {
-        actionProgressBarEvent.value = true
+    fun startLoadingEvent() {
+        loadingEvent.value = true
     }
 
-    fun cancelActionProgressBarEvent() {
-        actionProgressBarEvent.value = false
+    fun endLoadingEvent() {
+        loadingEvent.value = false
     }
-
 
     fun addUser(user: User) {
+        startLoadingEvent()
         uiScope.launch {
             persistence.add(user)
             Log.i(DATABASE_TAG, "DATABASE ADD USER: $user")
         }
+        endLoadingEvent()
     }
 
 

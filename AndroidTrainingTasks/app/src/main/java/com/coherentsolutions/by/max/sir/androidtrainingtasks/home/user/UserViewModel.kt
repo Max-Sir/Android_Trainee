@@ -28,6 +28,8 @@ class UserViewModel : ViewModel() {
 
     val eventDeleteUser by lazyOf(MutableLiveData<State>())
 
+    val loadingEvent by lazyOf(MutableLiveData<Boolean>())
+
     companion object {
         enum class State {
             NON_CALLED_DELETE_EVENT,
@@ -42,10 +44,20 @@ class UserViewModel : ViewModel() {
         user.value = persistence<PetstorePersistence>().loadUser()
         updateUserAfterSignIn()
         Log.i(INFO_TAG, "load from Shared Preferences")
-
+        loadingEvent.value = false
     }
 
+    private fun startLoadingEvent() {
+        loadingEvent.value = true
+    }
+
+    private fun endLoadingEvent() {
+        loadingEvent.value = false
+    }
+
+
     fun updateUserAfterSignIn() {
+        startLoadingEvent()
         val service = service<RetrofitService>()
         Log.i(INFO_TAG, "username")
         get(user.value!!.username)
@@ -63,6 +75,7 @@ class UserViewModel : ViewModel() {
                 Log.d(SERVER_TAG, "@GET method RESPONSE Failure\n${t.message}")
             }
         })
+        //endLoadingEvent()
     }
 
     /**
@@ -70,6 +83,7 @@ class UserViewModel : ViewModel() {
      */
 
     fun deleteUser(username: String? = null) {
+        startLoadingEvent()
         val service = service<RetrofitService>()
         val usernameKey = username ?: user.value?.username!!
         Log.i(SERVER_TAG, "DELETE USERNAME: $username")
@@ -105,7 +119,7 @@ class UserViewModel : ViewModel() {
 
             }
         })
-
+        endLoadingEvent()
 
     }
 
@@ -114,18 +128,22 @@ class UserViewModel : ViewModel() {
     }
 
     fun get(username: String) {
+        startLoadingEvent()
         uiScope.launch {
             val user = persistence.get(username) ?: return@launch
             Log.i(DATABASE_TAG, "DATABASE GET value: $user")
             //TODO("Not yet needed")
         }
+        endLoadingEvent()
     }
 
     fun delete(username: String) {
+        startLoadingEvent()
         uiScope.launch {
             persistence.delete(username)
             Log.i(DATABASE_TAG, "DATABASE DELETE value : $username")
         }
+        endLoadingEvent()
     }
 
 

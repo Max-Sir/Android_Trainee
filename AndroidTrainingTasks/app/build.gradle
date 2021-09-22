@@ -75,6 +75,9 @@ dependencies {
     // Core with Ktx
     implementation "androidx.core:core-ktx:$version_core"
 
+    //third-party libs
+    implementation "com.mikhaellopez:circularprogressbar:3.0.2"
+
 
     implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")

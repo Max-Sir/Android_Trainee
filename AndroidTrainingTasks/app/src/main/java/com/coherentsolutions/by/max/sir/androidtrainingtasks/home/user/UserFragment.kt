@@ -14,6 +14,7 @@ import com.coherentsolutions.by.max.sir.androidtrainingtasks.MyApplication.Compa
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.R
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.databinding.UserFragmentBinding
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.user.UserViewModel.Companion.State.*
+import com.coherentsolutions.by.max.sir.androidtrainingtasks.home.utils.ActivityProgressBar
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.network.PetstoreService.SERVER_TAG
 import com.coherentsolutions.by.max.sir.androidtrainingtasks.regestrationmodule.ui.login.LoginActivity
 
@@ -23,7 +24,7 @@ class UserFragment : Fragment() {
 
     private val lifecycleOwner = this
 
-    @SuppressLint("UseRequireInsteadOfGet")
+    @SuppressLint("UseRequireInsteadOfGet", "FragmentLiveDataObserve")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -76,6 +77,16 @@ class UserFragment : Fragment() {
         binding.userViewModel = viewModel
 
         Log.i(INFO_TAG, "binded layoyout and fragment inflated")
+        val loading = ActivityProgressBar(binding.loadingUser)
+
+        viewModel.loadingEvent.observe(lifecycleOwner, { loadingActive ->
+            if (loadingActive) {
+                loading.show()
+            } else {
+                loading.hide()
+            }
+        })
+
 
 
         return binding.root
