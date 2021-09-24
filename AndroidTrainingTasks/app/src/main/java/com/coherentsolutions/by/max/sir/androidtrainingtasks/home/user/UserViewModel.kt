@@ -113,7 +113,6 @@ class UserViewModel : ViewModel() {
                     }
                     else -> {
                         Log.i(SERVER_TAG, "${response.body()?.code}")
-                        //throw IllegalArgumentException("No such documented code")
                         eventDeleteUser.value = State.DELETE_FAILED
                         endLoadingEvent()
                     }

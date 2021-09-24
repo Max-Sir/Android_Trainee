@@ -255,17 +255,14 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        loginViewModel.startLoadingEvent()
         AlertDialog.Builder(this)
             .setTitle("Exit")
             .setMessage("Are you sure you wanna Exit?")
             .setPositiveButton(getText(R.string.yes)) { dialog, _ ->
                 finish()
-                loginViewModel.endLoadingEvent()
                 dialog.cancel()
             }
             .setNegativeButton(getText(R.string.no)) { dialog, _ ->
-                loginViewModel.endLoadingEvent()
                 dialog.cancel()
             }.create().show()
     }
